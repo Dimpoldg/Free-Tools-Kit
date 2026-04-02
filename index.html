@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Free Tools Kit - All Free Online Tools</title>
+
+<meta name="description" content="Use free online tools like Age Calculator, EMI Calculator, QR Generator, Image Compressor, PDF tools and more.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+}
+
+/* Header */
+header{
+  text-align:center;
+  padding:20px;
+  font-size:28px;
+  font-weight:bold;
+}
+
+/* Hero */
+.hero{
+  text-align:center;
+  padding:20px;
+}
+
+.hero h1{
+  font-size:30px;
+  margin-bottom:10px;
+}
+
+.hero p{
+  color:#ccc;
+}
+
+.hero input{
+  padding:12px;
+  width:80%;
+  max-width:400px;
+  border:none;
+  border-radius:25px;
+  outline:none;
+}
+
+/* Tools Grid */
+.container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
+  padding:20px;
+}
+
+/* Tool Card */
+.tool{
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(12px);
+  padding:20px;
+  border-radius:15px;
+  text-align:center;
+  text-decoration:none;
+  color:white;
+  transition:0.3s;
+}
+
+.tool:hover{
+  transform:translateY(-5px);
+  background:#00c6ff;
+}
+
+/* Icon */
+.icon{
+  font-size:30px;
+  margin-bottom:10px;
+}
+
+/* Footer */
+footer{
+  text-align:center;
+  padding:20px;
+  background:#111;
+  margin-top:20px;
+  color:#aaa;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>Free Tools Kit</header>
+
+<div class="hero">
+<h1>All-in-One Free Online Tools</h1>
+<p>Fast, simple and powerful tools for everyone</p>
+
+<input type="text" id="search" placeholder="Search tools..." onkeyup="searchTool()">
+</div>
+
+<!-- Tools Grid -->
+<div class="container" id="toolList">
+
+<a href="age-calculator.html" class="tool">
+<div class="icon">🎂</div>
+Age Calculator
+</a>
+
+<a href="emi-calculator.html" class="tool">
+<div class="icon">💰</div>
+EMI Calculator
+</a>
+
+<a href="percentage-calculator.html" class="tool">
+<div class="icon">📊</div>
+Percentage Calculator
+</a>
+
+<a href="qr-generator.html" class="tool">
+<div class="icon">🔳</div>
+QR Code Generator
+</a>
+
+<a href="image-compressor.html" class="tool">
+<div class="icon">🖼</div>
+Image Compressor
+</a>
+
+<a href="pdf-to-word.html" class="tool">
+<div class="icon">📄</div>
+PDF to Word
+</a>
+
+<a href="password-generator.html" class="tool">
+<div class="icon">🔐</div>
+Password Generator
+</a>
+
+<a href="gst-calculator.html" class="tool">
+<div class="icon">🧾</div>
+GST Calculator
+</a>
+
+<a href="background-remover.html" class="tool">
+<div class="icon">✂️</div>
+Background Remover
+</a>
+
+</div>
+
+<footer>
+© 2026 Free Tools Kit | All Rights Reserved
+</footer>
+
+<script>
+function searchTool(){
+let input=document.getElementById("search").value.toLowerCase();
+let tools=document.querySelectorAll(".tool");
+
+tools.forEach(tool=>{
+if(tool.innerText.toLowerCase().includes(input)){
+tool.style.display="block";
+}else{
+tool.style.display="none";
+}
+});
+}
+</script>
+
+</body>
+</html>
