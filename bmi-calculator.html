@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>BMI Calculator Online - Free Health Tool</title>
+
+<meta name="description" content="Calculate your BMI online for free. Check body weight status like underweight, normal, overweight instantly.">
+<meta name="keywords" content="BMI calculator, body mass index, health tool, weight calculator">
+<meta name="author" content="Free Tools Kit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+
+<style>
+
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+  text-align:center;
+}
+
+header{
+  padding:20px;
+  font-size:26px;
+  font-weight:bold;
+}
+
+.container{
+  margin-top:30px;
+}
+
+input, select, button{
+  padding:12px;
+  margin:10px;
+  border:none;
+  border-radius:10px;
+  width:250px;
+}
+
+button{
+  background:#00c6ff;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.result{
+  margin-top:20px;
+  font-size:20px;
+  line-height:1.6;
+}
+
+/* SEO CONTENT */
+.content{
+  max-width:700px;
+  margin:auto;
+  padding:20px;
+  text-align:left;
+  line-height:1.6;
+}
+
+/* Footer */
+footer{
+  background:#0f2027;
+  color:#ccc;
+  padding:25px;
+  text-align:center;
+  border-top:1px solid rgba(255,255,255,0.1);
+  margin-top:40px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>BMI Calculator</header>
+
+<div class="container">
+
+<h2>Check Your Body Health</h2>
+
+<input type="number" id="weight" placeholder="Enter Weight">
+
+<select id="wunit">
+  <option value="kg">KG</option>
+  <option value="lb">LB</option>
+</select>
+
+<br>
+
+<input type="number" id="height" placeholder="Enter Height">
+
+<select id="hunit">
+  <option value="cm">CM</option>
+  <option value="m">Meter</option>
+</select>
+
+<br>
+
+<button onclick="calculateBMI()">Calculate BMI</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<!-- SEO CONTENT -->
+<div class="content">
+
+<h2>Free BMI Calculator Online</h2>
+
+<p>
+BMI (Body Mass Index) calculator helps you check whether your body weight is healthy or not based on height and weight.
+</p>
+
+<h3>Features</h3>
+
+<ul>
+<li>Instant BMI calculation</li>
+<li>Supports KG, LB, CM, Meter</li>
+<li>Shows health status</li>
+<li>Mobile friendly design</li>
+</ul>
+
+<h3>Uses</h3>
+
+<ul>
+<li>Health tracking</li>
+<li>Fitness planning</li>
+<li>Medical form checking</li>
+<li>Personal awareness</li>
+</ul>
+
+</div>
+
+<script>
+
+function calculateBMI(){
+
+let weight = parseFloat(document.getElementById("weight").value);
+let wunit = document.getElementById("wunit").value;
+
+let height = parseFloat(document.getElementById("height").value);
+let hunit = document.getElementById("hunit").value;
+
+if(!weight || !height){
+document.getElementById("result").innerHTML =
+"Please enter valid values!";
+return;
+}
+
+/* weight conversion */
+if(wunit === "lb"){
+weight = weight * 0.453592;
+}
+
+/* height conversion */
+if(hunit === "cm"){
+height = height / 100;
+}
+
+/* BMI formula */
+let bmi = weight / (height * height);
+bmi = bmi.toFixed(2);
+
+let status = "";
+
+if(bmi < 18.5){
+status = "Underweight";
+}else if(bmi < 24.9){
+status = "Normal Weight";
+}else if(bmi < 29.9){
+status = "Overweight";
+}else{
+status = "Obese";
+}
+
+document.getElementById("result").innerHTML =
+`Your BMI: <b>${bmi}</b><br>Status: <b>${status}</b>`;
+}
+
+</script>
+
+<!-- FOOTER -->
+<footer>
+
+  <div style="margin-bottom:12px;">
+    <a href="about.html" style="color:#fff; margin:0 10px; text-decoration:none;">About</a> |
+    <a href="contact.html" style="color:#fff; margin:0 10px; text-decoration:none;">Contact</a> |
+    <a href="privacy.html" style="color:#fff; margin:0 10px; text-decoration:none;">Privacy Policy</a>
+  </div>
+
+  <p style="max-width:500px; margin:auto; font-size:14px;">
+    Free Tools Kit provides free online tools like calculators, PDF tools, image tools and more.
+  </p>
+
+  <p style="margin-top:12px; font-size:13px; color:#777;">
+    © 2026 Free Tools Kit | All Rights Reserved
+  </p>
+
+</footer>
+
+</body>
+  </html>
