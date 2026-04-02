@@ -2,27 +2,21 @@
 <html lang="en">
 <head>
 
-<!-- BASIC SEO -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Free Image Compressor Online | Reduce Image Size Without Losing Quality</title>
+<title>Free Image Compressor Online</title>
 
-<meta name="description" content="Compress images online for free. Reduce JPG, PNG image size without losing quality. Fast, secure and easy image compressor tool.">
+<meta name="description" content="Compress and resize images online for free without losing quality.">
 
-<meta name="keywords" content="image compressor, compress image online, reduce image size, jpg compressor, png compressor free">
+<meta name="keywords" content="image compressor, resize image online, jpg compressor, png compressor">
 
 <meta name="author" content="Free Tools Kit">
 
-<!-- OPEN GRAPH (SHARE SEO) -->
-<meta property="og:title" content="Free Image Compressor Online">
-<meta property="og:description" content="Reduce image size without losing quality. Free & fast tool.">
-<meta property="og:type" content="website">
-
-<!-- FAVICON -->
 <link rel="icon" href="favicon.ico">
 
 <style>
+
 body{
   margin:0;
   font-family:Arial;
@@ -30,20 +24,17 @@ body{
   color:white;
   text-align:center;
 }
+
+/* NAVBAR */
 .top-nav{
   position:sticky;
   top:0;
   z-index:1000;
-
   display:flex;
   justify-content:space-between;
   align-items:center;
-
   padding:12px 20px;
-
-  /* SAME WEBSITE BACKGROUND MATCH */
   background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-
   border-bottom:1px solid rgba(255,255,255,0.1);
 }
 
@@ -58,26 +49,17 @@ body{
   text-decoration:none;
   margin-left:15px;
   font-weight:500;
-  transition:0.3s;
 }
 
 .top-nav .links a:hover{
   color:#00e6ff;
-  text-shadow:0 0 10px #00e6ff;
 }
+
+/* MAIN */
 .container{
   padding:40px 20px;
 }
 
-h1{
-  margin-bottom:10px;
-}
-
-p{
-  color:#ccc;
-}
-
-/* Upload */
 .upload-box{
   border:2px dashed #aaa;
   padding:40px;
@@ -91,12 +73,10 @@ p{
   background:rgba(255,255,255,0.05);
 }
 
-/* Slider */
 .slider{
   width:80%;
 }
 
-/* Button */
 button{
   padding:12px 25px;
   border:none;
@@ -105,6 +85,7 @@ button{
   color:black;
   font-weight:bold;
   cursor:pointer;
+  margin-top:10px;
 }
 
 img{
@@ -113,7 +94,15 @@ img{
   border-radius:10px;
 }
 
-/* Footer SEO content */
+input[type="number"]{
+  padding:10px;
+  margin:5px;
+  border-radius:8px;
+  border:none;
+  width:120px;
+}
+
+/* SEO SECTION */
 .seo{
   max-width:700px;
   margin:50px auto;
@@ -121,55 +110,86 @@ img{
   font-size:14px;
   line-height:1.6;
 }
+
+footer{
+  margin:40px 0;
+  color:#888;
+  font-size:13px;
+}
+
 </style>
 
 </head>
 
 <body>
 
+<!-- NAVBAR -->
+<div class="top-nav">
+  <div class="logo">🖼 Free Tools Kit</div>
+  <div class="links">
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a href="#privacy">Privacy</a>
+  </div>
+</div>
+
 <div class="container">
 
-  <h1>🖼 Free Image Compressor</h1>
-  <p>Reduce image size without losing quality</p>
+  <h1>Free Image Compressor</h1>
+  <p>Compress + Resize images without losing quality</p>
 
+  <!-- UPLOAD -->
   <div class="upload-box" onclick="fileInput.click()">
     Click to Upload Image
     <input type="file" id="fileInput" hidden accept="image/*">
   </div>
 
+  <!-- SIZE -->
+  <p>Resize Image (Width x Height)</p>
+  <input type="number" id="imgWidth" placeholder="Width" value="300">
+  <input type="number" id="imgHeight" placeholder="Height" value="300">
+
+  <!-- QUALITY -->
   <p>Compression Quality: <span id="qualityValue">70</span>%</p>
   <input type="range" min="10" max="100" value="70" class="slider" id="quality">
 
   <br><br>
-  <button onclick="compressImage()">Compress Image</button>
+  <button onclick="compressImage()">Compress & Resize</button>
 
   <div>
     <img id="preview">
   </div>
 
   <br>
+
   <a id="downloadBtn" style="display:none;">
     <button>Download Image</button>
   </a>
 
 </div>
 
-<!-- SEO CONTENT (VERY IMPORTANT) -->
-<div class="seo">
-<h2>Free Online Image Compressor Tool</h2>
-<p>
-This free image compressor allows you to reduce image size online without losing quality.
-You can compress JPG and PNG images instantly using this fast and secure tool.
-No upload to server, everything works in your browser for maximum privacy.
-</p>
-
-<p>
-Use this tool to optimize images for websites, social media, and faster loading speed.
-Perfect for bloggers, developers, and students.
-</p>
+<!-- SEO CONTENT -->
+<div class="seo" id="about">
+  <h2>About Us</h2>
+  <p>This tool helps you compress and resize images instantly in browser.</p>
 </div>
 
+<div class="seo" id="contact">
+  <h2>Contact Us</h2>
+  <p>Email: support@freetoolskit.com</p>
+</div>
+
+<div class="seo" id="privacy">
+  <h2>Privacy Policy</h2>
+  <p>No data is uploaded or stored. Everything runs in your browser.</p>
+</div>
+
+<footer>
+© 2026 Free Tools Kit | All Rights Reserved
+</footer>
+
 <script>
+
 let originalImage;
 
 const fileInput = document.getElementById("fileInput");
@@ -203,10 +223,13 @@ function compressImage(){
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
 
-  canvas.width = originalImage.width;
-  canvas.height = originalImage.height;
+  let width = document.getElementById("imgWidth").value;
+  let height = document.getElementById("imgHeight").value;
 
-  ctx.drawImage(originalImage,0,0);
+  canvas.width = width;
+  canvas.height = height;
+
+  ctx.drawImage(originalImage,0,0,width,height);
 
   let quality = qualitySlider.value / 100;
 
@@ -216,18 +239,11 @@ function compressImage(){
 
   const downloadBtn = document.getElementById("downloadBtn");
   downloadBtn.href = compressedData;
-  downloadBtn.download = "compressed.jpg";
+  downloadBtn.download = "compressed-image.jpg";
   downloadBtn.style.display = "inline-block";
 }
+
 </script>
-  <div class="top-nav">
-  <a href="#about">About</a>
-  <a href="#contact">Contact</a>
-  <a href="#privacy">Privacy Policy</a>
-  </div>
-  <footer style="margin:40px 0;color:#888;font-size:13px;">
-  © 2026 Free Tools Kit | All Rights Reserved
-  </footer>
 
 </body>
 </html>
