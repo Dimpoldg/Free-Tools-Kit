@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>PDF to Word Converter Online - Free Tools Kit</title>
+
+<meta name="description" content="Convert PDF to Word online for free. Extract text from PDF and download as DOCX file instantly.">
+
+<meta name="keywords" content="PDF to Word, PDF converter, PDF to DOCX, online PDF tool">
+
+<meta name="author" content="Free Tools Kit">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+  text-align:center;
+}
+
+header{
+  padding:20px;
+  font-size:26px;
+  font-weight:bold;
+}
+
+.container{
+  margin-top:30px;
+}
+
+input, button{
+  padding:12px;
+  margin:10px;
+  border:none;
+  border-radius:10px;
+  width:260px;
+}
+
+button{
+  background:#00c6ff;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.result{
+  margin-top:20px;
+  font-size:16px;
+  white-space:pre-wrap;
+  text-align:left;
+  max-width:700px;
+  margin:auto;
+  background:rgba(255,255,255,0.05);
+  padding:15px;
+  border-radius:10px;
+}
+
+/* Footer */
+footer{
+  background:#0f2027;
+  color:#ccc;
+  padding:25px;
+  text-align:center;
+  border-top:1px solid rgba(255,255,255,0.1);
+  margin-top:40px;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>PDF to Word Converter</header>
+
+<div class="container">
+
+<h2>Upload PDF File</h2>
+
+<input type="file" id="pdfFile" accept="application/pdf">
+<br>
+
+<button onclick="convertPDF()">Convert to Word (Text)</button>
+
+<button id="downloadBtn" style="display:none;" onclick="downloadWord()">Download Word</button>
+
+<div class="result" id="output">Converted text will appear here...</div>
+
+</div>
+
+<!-- SEO CONTENT -->
+<div style="max-width:700px;margin:auto;text-align:left;padding:20px;line-height:1.6;">
+
+<h2>Free PDF to Word Converter</h2>
+
+<p>
+This tool allows you to convert PDF files into editable Word-like text instantly.
+You can upload any PDF and extract text directly in your browser.
+</p>
+
+<h3>Features</h3>
+<ul>
+<li>Fast PDF text extraction</li>
+<li>No upload to server (100% safe)</li>
+<li>Works on mobile & desktop</li>
+</ul>
+
+</div>
+
+<!-- PDF LIBRARY -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
+<script>
+
+let extractedText = "";
+
+async function convertPDF(){
+
+const file = document.getElementById("pdfFile").files[0];
+
+if(!file){
+alert("Please upload a PDF file!");
+return;
+}
+
+const reader = new FileReader();
+
+reader.onload = async function(){
+
+const typedarray = new Uint8Array(this.result);
+
+const pdf = await pdfjsLib.getDocument(typedarray).promise;
+
+let text = "";
+
+for(let i=1;i<=pdf.numPages;i++){
+let page = await pdf.getPage(i);
+let content = await page.getTextContent();
+
+content.items.forEach(item=>{
+text += item.str + " ";
+});
+
+text += "\n\n";
+}
+
+extractedText = text;
+
+document.getElementById("output").innerText = text || "No text found!";
+document.getElementById("downloadBtn").style.display = "inline-block";
+};
+
+reader.readAsArrayBuffer(file);
+}
+
+function downloadWord(){
+
+let blob = new Blob([extractedText], {type:"application/msword"});
+let url = URL.createObjectURL(blob);
+
+let a = document.createElement("a");
+a.href = url;
+a.download = "converted.doc";
+a.click();
+}
+
+</script>
+
+<!-- FOOTER -->
+<footer>
+
+  <div style="margin-bottom:12px;">
+    <a href="about.html" style="color:#fff; margin:0 10px; text-decoration:none;">About</a> |
+    <a href="contact.html" style="color:#fff; margin:0 10px; text-decoration:none;">Contact</a> |
+    <a href="privacy.html" style="color:#fff; margin:0 10px; text-decoration:none;">Privacy Policy</a>
+  </div>
+
+  <p style="max-width:500px;margin:auto;font-size:14px;">
+    Free Tools Kit provides free PDF tools, image tools and online utilities.
+  </p>
+
+  <p style="margin-top:12px;font-size:13px;color:#777;">
+    © 2026 Free Tools Kit | All Rights Reserved
+  </p>
+
+</footer>
+
+</body>
+</html>
