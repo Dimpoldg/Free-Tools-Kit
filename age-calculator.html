@@ -2,13 +2,23 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Age Calculator - Free Tools Kit</title>
 
-<meta name="description" content="Calculate your exact age in years, months and days with this free online age calculator tool.">
+<title>Age Calculator Online - Free Tools Kit</title>
+
+<meta name="description" content="Calculate your exact age online. Find years, months, and days instantly with this free age calculator tool.">
+
+<meta name="keywords" content="age calculator, calculate age online, DOB calculator, how old am I">
+
+<meta name="author" content="Free Tools Kit">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://yourdomain.com/age-calculator.html">
+
 <style>
+
 body{
   margin:0;
   font-family:Arial;
@@ -32,16 +42,28 @@ input, button{
   margin:10px;
   border:none;
   border-radius:10px;
+  width:250px;
 }
 
 button{
   background:#00c6ff;
   cursor:pointer;
+  font-weight:bold;
 }
 
 .result{
   margin-top:20px;
   font-size:20px;
+  line-height:1.6;
+}
+
+/* SEO CONTENT */
+.content{
+  max-width:700px;
+  margin:auto;
+  padding:20px;
+  text-align:left;
+  line-height:1.6;
 }
 
 /* Footer */
@@ -53,6 +75,7 @@ footer{
   border-top:1px solid rgba(255,255,255,0.1);
   margin-top:40px;
 }
+
 </style>
 
 </head>
@@ -63,9 +86,10 @@ footer{
 
 <div class="container">
 
-<h2>Enter Your Date of Birth</h2>
+<h2>Find Your Exact Age</h2>
 
 <input type="date" id="dob">
+
 <br>
 
 <button onclick="calculateAge()">Calculate Age</button>
@@ -74,19 +98,52 @@ footer{
 
 </div>
 
-<script>
-function calculateAge(){
-let dob = new Date(document.getElementById("dob").value);
-let today = new Date();
+<!-- SEO CONTENT -->
+<div class="content">
 
-if(!dob.getTime()){
-document.getElementById("result").innerText="Please select a valid date!";
+<h2>Free Age Calculator Online</h2>
+
+<p>
+This age calculator helps you find your exact age in years, months, and days. Just enter your date of birth and get instant results.
+</p>
+
+<h3>Features</h3>
+
+<ul>
+<li>Exact age calculation</li>
+<li>Years, months, days result</li>
+<li>Fast and free tool</li>
+<li>Mobile friendly design</li>
+</ul>
+
+<h3>Uses</h3>
+
+<ul>
+<li>Job form age checking</li>
+<li>School admission</li>
+<li>Government form filling</li>
+<li>Personal curiosity</li>
+</ul>
+
+</div>
+
+<script>
+
+function calculateAge(){
+
+let dob = document.getElementById("dob").value;
+
+if(!dob){
+document.getElementById("result").innerText = "Please select your date of birth!";
 return;
 }
 
-let years = today.getFullYear() - dob.getFullYear();
-let months = today.getMonth() - dob.getMonth();
-let days = today.getDate() - dob.getDate();
+let birthDate = new Date(dob);
+let today = new Date();
+
+let years = today.getFullYear() - birthDate.getFullYear();
+let months = today.getMonth() - birthDate.getMonth();
+let days = today.getDate() - birthDate.getDate();
 
 if(days < 0){
 months--;
@@ -99,11 +156,15 @@ months += 12;
 }
 
 document.getElementById("result").innerHTML =
-`Your Age: <br><b>${years} Years ${months} Months ${days} Days</b>`;
+`Your Age Is:<br>
+<b>${years} Years</b> <br>
+<b>${months} Months</b> <br>
+<b>${days} Days</b>`;
 }
+
 </script>
 
-<!-- Footer -->
+<!-- FOOTER -->
 <footer>
 
   <div style="margin-bottom:12px;">
