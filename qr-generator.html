@@ -5,9 +5,9 @@
 
 <title>QR Code Generator Online - Free Tools Kit</title>
 
-<meta name="description" content="Generate QR codes online for free. Create QR codes for text, links, numbers and more instantly with our QR code generator.">
+<meta name="description" content="Generate high quality QR codes online for free. Create and download QR codes instantly.">
 
-<meta name="keywords" content="QR Code Generator, Create QR Code, Free QR Generator, Online QR Code Tool, QR Code Maker">
+<meta name="keywords" content="QR Code Generator, Free QR Code, Download QR Code, HD QR Code Generator">
 
 <meta name="author" content="Free Tools Kit">
 
@@ -41,7 +41,7 @@ input, button{
   margin:10px;
   border:none;
   border-radius:10px;
-  width:250px;
+  width:260px;
 }
 
 button{
@@ -49,8 +49,12 @@ button{
   cursor:pointer;
 }
 
-.qr-box{
+.qr-box img{
   margin-top:20px;
+  width:250px;
+  border-radius:10px;
+  background:white;
+  padding:10px;
 }
 
 .content{
@@ -80,7 +84,7 @@ footer{
 
 <div class="container">
 
-<h2>Create QR Code</h2>
+<h2>Create HD QR Code</h2>
 
 <input type="text" id="qrText" placeholder="Enter text or URL">
 <br>
@@ -94,48 +98,28 @@ footer{
 <!-- SEO CONTENT -->
 <div class="content">
 
-<h2>Free QR Code Generator</h2>
+<h2>Free HD QR Code Generator</h2>
 
 <p>
-Use this free QR code generator to create QR codes instantly. You can generate QR codes for URLs, text, phone numbers and more in just one click.
+Use this free QR code generator to create high-quality QR codes instantly. You can generate QR codes for links, text, contact details and more.
 </p>
 
-<h3>How to Use QR Code Generator?</h3>
+<h3>How to Generate QR Code?</h3>
 
 <p>
-Enter your text or link in the input box and click on generate. Your QR code will be created instantly and ready to use.
+Enter your text or URL and click generate. Your HD QR code will be ready instantly with download option.
 </p>
 
-<h3>Benefits of QR Codes</h3>
+<h3>Why Use Our QR Tool?</h3>
 
 <ul>
-<li>Quick sharing of information</li>
-<li>Easy to scan with mobile devices</li>
-<li>Useful for business and marketing</li>
-<li>Free and simple to use</li>
+<li>High resolution QR code (HD quality)</li>
+<li>Instant generation</li>
+<li>Free download option</li>
+<li>Easy to use</li>
 </ul>
 
 </div>
-  <script>
-function generateQR(){
-let text = document.getElementById("qrText").value;
-
-if(text==""){
-document.getElementById("qr").innerText="Please enter text!";
-return;
-}
-
-let qrURL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(text)}`;
-
-document.getElementById("qr").innerHTML = `
-<img id="qrImage" src="${qrURL}">
-<br><br>
-<a href="${qrURL}" download="qr-code.png">
-<button>Download QR Code</button>
-</a>
-`;
-}
-  </script>
 
 <script>
 function generateQR(){
@@ -146,8 +130,16 @@ document.getElementById("qr").innerText="Please enter text!";
 return;
 }
 
-document.getElementById("qr").innerHTML =
-`<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(text)}">`;
+// HD QR (1000x1000)
+let qrURL = `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encodeURIComponent(text)}`;
+
+document.getElementById("qr").innerHTML = `
+<img src="${qrURL}">
+<br><br>
+<a href="${qrURL}" download="qr-code.png">
+<button>Download QR Code</button>
+</a>
+`;
 }
 </script>
 
