@@ -1,19 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Free Image Compressor Online</title>
+<title>Image Compressor Online - Resize & Reduce Size Free Tool</title>
 
-<meta name="description" content="Compress and resize images online for free without losing quality.">
+<meta name="description" content="Compress images online for free. Resize width & height and reduce image size in KB or MB instantly with this free image compressor tool.">
 
-<meta name="keywords" content="image compressor, resize image online, jpg compressor, png compressor">
+<meta name="keywords" content="image compressor, resize image online, reduce image size, kb mb image compressor">
 
 <meta name="author" content="Free Tools Kit">
 
-<link rel="icon" href="favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://yourdomain.com/image-compressor.html">
 
 <style>
 
@@ -25,96 +27,59 @@ body{
   text-align:center;
 }
 
-/* NAVBAR */
-.top-nav{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 20px;
-  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-  border-bottom:1px solid rgba(255,255,255,0.1);
-}
-
-.top-nav .logo{
+header{
+  padding:20px;
+  font-size:26px;
   font-weight:bold;
-  color:#00e6ff;
-  font-size:18px;
 }
 
-.top-nav .links a{
-  color:#ddd;
-  text-decoration:none;
-  margin-left:15px;
-  font-weight:500;
-}
-
-.top-nav .links a:hover{
-  color:#00e6ff;
-}
-
-/* MAIN */
 .container{
-  padding:40px 20px;
+  margin-top:30px;
 }
 
-.upload-box{
-  border:2px dashed #aaa;
-  padding:40px;
-  border-radius:15px;
-  cursor:pointer;
-  margin:20px auto;
-  max-width:400px;
-}
-
-.upload-box:hover{
-  background:rgba(255,255,255,0.05);
-}
-
-.slider{
-  width:80%;
+input, select, button{
+  padding:12px;
+  margin:10px;
+  border:none;
+  border-radius:10px;
+  width:250px;
 }
 
 button{
-  padding:12px 25px;
-  border:none;
-  border-radius:10px;
-  background:#00e6ff;
-  color:black;
-  font-weight:bold;
+  background:#00c6ff;
   cursor:pointer;
-  margin-top:10px;
+  font-weight:bold;
 }
 
-img{
-  max-width:300px;
+canvas{
   margin-top:20px;
-  border-radius:10px;
+  max-width:90%;
+  border-radius:15px;
+  background:white;
 }
 
-input[type="number"]{
-  padding:10px;
-  margin:5px;
-  border-radius:8px;
-  border:none;
-  width:120px;
+.result{
+  margin-top:20px;
+  font-size:18px;
 }
 
-/* SEO SECTION */
-.seo{
+/* SEO CONTENT */
+.content{
   max-width:700px;
-  margin:50px auto;
-  color:#bbb;
-  font-size:14px;
+  margin:auto;
+  padding:20px;
+  text-align:left;
   line-height:1.6;
 }
 
+/* Footer */
 footer{
-  margin:40px 0;
-  color:#888;
-  font-size:13px;
+  background:#0f2027;
+  color:#ccc;
+  padding:25px;
+  text-align:center;
+  border-top:1px solid rgba(255,255,255,0.1);
+  margin-top:40px;
 }
 
 </style>
@@ -123,127 +88,147 @@ footer{
 
 <body>
 
-<!-- NAVBAR -->
-<div class="top-nav">
-  <div class="logo">🖼 Free Tools Kit</div>
-  <div class="links">
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-    <a href="#privacy">Privacy</a>
-  </div>
-</div>
+<header>Image Compressor</header>
 
 <div class="container">
 
-  <h1>Free Image Compressor</h1>
-  <p>Compress + Resize images without losing quality</p>
+<h2>Compress & Resize Image</h2>
 
-  <!-- UPLOAD -->
-  <div class="upload-box" onclick="fileInput.click()">
-    Click to Upload Image
-    <input type="file" id="fileInput" hidden accept="image/*">
-  </div>
+<input type="file" id="imageInput" accept="image/*">
+<br>
 
-  <!-- SIZE -->
-  <p>Resize Image (Width x Height)</p>
-  <input type="number" id="imgWidth" placeholder="Width" value="300">
-  <input type="number" id="imgHeight" placeholder="Height" value="300">
+<input type="number" id="width" placeholder="Width (px)">
+<input type="number" id="height" placeholder="Height (px)">
 
-  <!-- QUALITY -->
-  <p>Compression Quality: <span id="qualityValue">70</span>%</p>
-  <input type="range" min="10" max="100" value="70" class="slider" id="quality">
+<br>
 
-  <br><br>
-  <button onclick="compressImage()">Compress & Resize</button>
+<select id="quality">
+  <option value="0.9">High Quality (Low Compression)</option>
+  <option value="0.7" selected>Medium Quality</option>
+  <option value="0.5">Low Quality (High Compression)</option>
+</select>
 
-  <div>
-    <img id="preview">
-  </div>
+<br>
 
-  <br>
+<button onclick="compressImage()">Compress Image</button>
 
-  <a id="downloadBtn" style="display:none;">
-    <button>Download Image</button>
-  </a>
+<br>
+
+<canvas id="canvas"></canvas>
+
+<br>
+
+<button onclick="downloadImage()">Download Image</button>
+
+<div class="result" id="result"></div>
 
 </div>
 
 <!-- SEO CONTENT -->
-<div class="seo" id="about">
-  <h2>About Us</h2>
-  <p>This tool helps you compress and resize images instantly in browser.</p>
-</div>
+<div class="content">
 
-<div class="seo" id="contact">
-  <h2>Contact Us</h2>
-  <p>Email: support@freetoolskit.com</p>
-</div>
+<h2>Free Image Compressor Tool</h2>
 
-<div class="seo" id="privacy">
-  <h2>Privacy Policy</h2>
-  <p>No data is uploaded or stored. Everything runs in your browser.</p>
-</div>
+<p>
+This tool helps you compress and resize images easily. You can set width, height and control file size using quality settings (KB/MB reduction).
+</p>
 
-<footer>
-© 2026 Free Tools Kit | All Rights Reserved
-</footer>
+<h3>Features</h3>
+
+<ul>
+<li>Resize width & height</li>
+<li>Reduce image size (KB/MB control)</li>
+<li>Fast browser-based processing</li>
+<li>No upload needed (100% privacy)</li>
+</ul>
+
+<h3>Uses</h3>
+
+<ul>
+<li>Website image optimization</li>
+<li>WhatsApp sharing images</li>
+<li>Passport photo resize</li>
+<li>Social media uploads</li>
+</ul>
+
+</div>
 
 <script>
 
-let originalImage;
+let canvas = document.getElementById("canvas");
+let ctx = canvas.getContext("2d");
 
-const fileInput = document.getElementById("fileInput");
-const preview = document.getElementById("preview");
-const qualitySlider = document.getElementById("quality");
-const qualityValue = document.getElementById("qualityValue");
+let img = new Image();
 
-qualitySlider.oninput = () => {
-  qualityValue.innerText = qualitySlider.value;
-};
+document.getElementById("imageInput").addEventListener("change", function(e){
 
-fileInput.onchange = () => {
-  const file = fileInput.files[0];
-  if(!file) return;
+let file = e.target.files[0];
+let reader = new FileReader();
 
-  const reader = new FileReader();
-  reader.onload = function(e){
-    preview.src = e.target.result;
-    originalImage = new Image();
-    originalImage.src = e.target.result;
-  };
-  reader.readAsDataURL(file);
-};
+reader.onload = function(event){
+img.onload = function(){
+canvas.width = img.width;
+canvas.height = img.height;
+ctx.drawImage(img,0,0);
+}
+img.src = event.target.result;
+}
+
+reader.readAsDataURL(file);
+});
 
 function compressImage(){
-  if(!originalImage){
-    alert("Upload image first!");
-    return;
-  }
 
-  const canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d");
+let width = parseInt(document.getElementById("width").value);
+let height = parseInt(document.getElementById("height").value);
+let quality = parseFloat(document.getElementById("quality").value);
 
-  let width = document.getElementById("imgWidth").value;
-  let height = document.getElementById("imgHeight").value;
+if(!width) width = img.width;
+if(!height) height = img.height;
 
-  canvas.width = width;
-  canvas.height = height;
+canvas.width = width;
+canvas.height = height;
 
-  ctx.drawImage(originalImage,0,0,width,height);
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.drawImage(img,0,0,width,height);
 
-  let quality = qualitySlider.value / 100;
+document.getElementById("result").innerText =
+"Image compressed successfully! Quality: " + quality;
+}
 
-  const compressedData = canvas.toDataURL("image/jpeg", quality);
+function downloadImage(){
 
-  preview.src = compressedData;
-
-  const downloadBtn = document.getElementById("downloadBtn");
-  downloadBtn.href = compressedData;
-  downloadBtn.download = "compressed-image.jpg";
-  downloadBtn.style.display = "inline-block";
+let link = document.createElement("a");
+link.download = "compressed-image.jpg";
+link.href = canvas.toDataURL("image/jpeg", 0.8);
+link.click();
 }
 
 </script>
+
+<!-- FOOTER -->
+<footer>
+
+  <div style="margin-bottom:12px;">
+    <a href="about.html" style="color:#fff; margin:0 10px; text-decoration:none;">About</a> |
+    <a href="contact.html" style="color:#fff; margin:0 10px; text-decoration:none;">Contact</a> |
+    <a href="privacy.html" style="color:#fff; margin:0 10px; text-decoration:none;">Privacy Policy</a>
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <a href="index.html" style="color:#aaa; margin:0 10px; text-decoration:none;">Home</a> |
+    <a href="#" style="color:#aaa; margin:0 10px; text-decoration:none;">Tools</a>
+  </div>
+
+  <p style="max-width:500px; margin:auto; font-size:14px;">
+    Free Tools Kit provides free online tools like calculators, PDF tools, image tools and more.
+  </p>
+
+  <p style="margin-top:12px; font-size:13px; color:#777;">
+    © 2026 Free Tools Kit | All Rights Reserved
+  </p>
+
+</footer>
 
 </body>
 </html>
