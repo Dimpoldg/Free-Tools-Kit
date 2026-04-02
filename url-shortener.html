@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>URL Shortener Online - Free Tools Kit</title>
+
+<meta name="description" content="Shorten long URLs instantly. Create clean, shareable short links for free with this URL shortener tool.">
+<meta name="keywords" content="url shortener, short link generator, shorten link online, free url tool">
+<meta name="author" content="Free Tools Kit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+
+<style>
+
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+  text-align:center;
+}
+
+header{
+  padding:20px;
+  font-size:26px;
+  font-weight:bold;
+}
+
+.container{
+  margin-top:30px;
+}
+
+input, button{
+  padding:12px;
+  margin:10px;
+  border:none;
+  border-radius:10px;
+  width:280px;
+}
+
+button{
+  background:#00c6ff;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.result{
+  margin-top:20px;
+  font-size:18px;
+  line-height:1.6;
+}
+
+.content{
+  max-width:700px;
+  margin:auto;
+  padding:20px;
+  text-align:left;
+  line-height:1.6;
+}
+
+/* Footer */
+footer{
+  background:#0f2027;
+  color:#ccc;
+  padding:25px;
+  text-align:center;
+  border-top:1px solid rgba(255,255,255,0.1);
+  margin-top:40px;
+}
+
+a{
+  color:#00c6ff;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>URL Shortener</header>
+
+<div class="container">
+
+<h2>Shorten Your Long URL</h2>
+
+<input type="text" id="longUrl" placeholder="Paste your long URL">
+
+<br>
+
+<button onclick="shortenURL()">Generate Short Link</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<!-- SEO CONTENT -->
+<div class="content">
+
+<h2>Free URL Shortener Tool</h2>
+
+<p>
+This tool helps you convert long URLs into short, clean and shareable links instantly.
+</p>
+
+<h3>Features</h3>
+
+<ul>
+<li>Instant URL shortening</li>
+<li>Free and easy to use</li>
+<li>Clean shareable links</li>
+<li>Mobile friendly</li>
+</ul>
+
+<h3>Uses</h3>
+
+<ul>
+<li>WhatsApp sharing</li>
+<li>Social media posts</li>
+<li>Business links</li>
+<li>Affiliate marketing</li>
+</ul>
+
+</div>
+
+<script>
+
+function shortenURL(){
+
+let longUrl = document.getElementById("longUrl").value;
+
+if(!longUrl){
+document.getElementById("result").innerHTML = "Please enter a URL!";
+return;
+}
+
+/* Free API */
+let shortUrl = "https://tinyurl.com/api-create.php?url=" + encodeURIComponent(longUrl);
+
+fetch(shortUrl)
+.then(res => res.text())
+.then(data => {
+
+document.getElementById("result").innerHTML =
+`Short URL: <br><a href="${data}" target="_blank">${data}</a>`;
+
+})
+.catch(err => {
+document.getElementById("result").innerText = "Error generating short URL!";
+});
+
+}
+
+</script>
+
+<!-- FOOTER -->
+<footer>
+
+  <p>© 2026 Free Tools Kit | All Rights Reserved</p>
+
+</footer>
+
+</body>
+</html>
