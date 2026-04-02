@@ -30,7 +30,41 @@ body{
   color:white;
   text-align:center;
 }
+.top-nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
 
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:12px 20px;
+
+  /* SAME WEBSITE BACKGROUND MATCH */
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.top-nav .logo{
+  font-weight:bold;
+  color:#00e6ff;
+  font-size:18px;
+}
+
+.top-nav .links a{
+  color:#ddd;
+  text-decoration:none;
+  margin-left:15px;
+  font-weight:500;
+  transition:0.3s;
+}
+
+.top-nav .links a:hover{
+  color:#00e6ff;
+  text-shadow:0 0 10px #00e6ff;
+}
 .container{
   padding:40px 20px;
 }
