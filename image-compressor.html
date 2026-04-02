@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Image Compressor Online - Reduce Image Size | Free Tools Kit</title>
+
+<meta name="description" content="Compress images online for free. Reduce image size without losing quality using our fast image compressor tool.">
+
+<meta name="keywords" content="Image Compressor, Reduce Image Size, Compress Image Online, Photo Compressor, Image Optimization Tool">
+
+<meta name="author" content="Free Tools Kit">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://yourdomain.com/image-compressor.html">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+  text-align:center;
+}
+
+header{
+  padding:20px;
+  font-size:26px;
+  font-weight:bold;
+}
+
+.container{
+  margin-top:30px;
+}
+
+input, button{
+  padding:12px;
+  margin:10px;
+  border:none;
+  border-radius:10px;
+}
+
+button{
+  background:#00c6ff;
+  cursor:pointer;
+}
+
+img{
+  margin-top:20px;
+  max-width:250px;
+  border-radius:10px;
+}
+
+.content{
+  max-width:700px;
+  margin:auto;
+  padding:20px;
+  text-align:left;
+  line-height:1.6;
+}
+
+/* Footer */
+footer{
+  background:#0f2027;
+  color:#ccc;
+  padding:25px;
+  text-align:center;
+  border-top:1px solid rgba(255,255,255,0.1);
+  margin-top:40px;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>Image Compressor</header>
+
+<div class="container">
+
+<h2>Compress Your Image</h2>
+
+<input type="file" id="upload" accept="image/*">
+<br>
+
+<button onclick="compressImage()">Compress Image</button>
+
+<div id="result"></div>
+
+</div>
+
+<!-- SEO CONTENT -->
+<div class="content">
+
+<h2>Free Image Compressor</h2>
+
+<p>
+Use this free image compressor tool to reduce image file size without losing quality. It works directly in your browser and ensures fast processing.
+</p>
+
+<h3>How It Works?</h3>
+
+<p>
+Upload your image and click compress. The tool reduces the image size instantly using browser technology.
+</p>
+
+<h3>Benefits</h3>
+
+<ul>
+<li>Reduce image size quickly</li>
+<li>No upload to server (safe)</li>
+<li>Fast and free</li>
+<li>Works on mobile and desktop</li>
+</ul>
+
+</div>
+
+<script>
+function compressImage(){
+let file = document.getElementById("upload").files[0];
+
+if(!file){
+document.getElementById("result").innerText="Please select an image!";
+return;
+}
+
+let reader = new FileReader();
+
+reader.onload = function(e){
+let img = new Image();
+img.src = e.target.result;
+
+img.onload = function(){
+
+let canvas = document.createElement("canvas");
+let ctx = canvas.getContext("2d");
+
+// Resize (optional)
+let width = img.width * 0.7;
+let height = img.height * 0.7;
+
+canvas.width = width;
+canvas.height = height;
+
+ctx.drawImage(img, 0, 0, width, height);
+
+// Compress (quality 0.7)
+let compressed = canvas.toDataURL("image/jpeg", 0.7);
+
+document.getElementById("result").innerHTML = `
+<img src="${compressed}">
+<br><br>
+<a href="${compressed}" download="compressed-image.jpg">
+<button>Download Compressed Image</button>
+</a>
+`;
+};
+};
+
+reader.readAsDataURL(file);
+}
+</script>
+
+<!-- FOOTER -->
+<footer>
+
+  <div style="margin-bottom:12px;">
+    <a href="about.html" style="color:#fff; margin:0 10px; text-decoration:none;">About</a> |
+    <a href="contact.html" style="color:#fff; margin:0 10px; text-decoration:none;">Contact</a> |
+    <a href="privacy.html" style="color:#fff; margin:0 10px; text-decoration:none;">Privacy Policy</a>
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <a href="index.html" style="color:#aaa; margin:0 10px; text-decoration:none;">Home</a> |
+    <a href="#" style="color:#aaa; margin:0 10px; text-decoration:none;">Tools</a>
+  </div>
+
+  <p style="max-width:500px; margin:auto; font-size:14px;">
+    Free Tools Kit provides free online tools like calculators, PDF tools, image tools and more.
+  </p>
+
+  <p style="margin-top:12px; font-size:13px; color:#777;">
+    © 2026 Free Tools Kit | All Rights Reserved
+  </p>
+
+</footer>
+
+</body>
+</html>
