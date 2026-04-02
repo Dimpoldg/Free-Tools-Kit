@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- BASIC SEO -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Free Image Compressor Online | Reduce Image Size Without Losing Quality</title>
+
+<meta name="description" content="Compress images online for free. Reduce JPG, PNG image size without losing quality. Fast, secure and easy image compressor tool.">
+
+<meta name="keywords" content="image compressor, compress image online, reduce image size, jpg compressor, png compressor free">
+
+<meta name="author" content="Free Tools Kit">
+
+<!-- OPEN GRAPH (SHARE SEO) -->
+<meta property="og:title" content="Free Image Compressor Online">
+<meta property="og:description" content="Reduce image size without losing quality. Free & fast tool.">
+<meta property="og:type" content="website">
+
+<!-- FAVICON -->
+<link rel="icon" href="favicon.ico">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+  text-align:center;
+}
+
+.container{
+  padding:40px 20px;
+}
+
+h1{
+  margin-bottom:10px;
+}
+
+p{
+  color:#ccc;
+}
+
+/* Upload */
+.upload-box{
+  border:2px dashed #aaa;
+  padding:40px;
+  border-radius:15px;
+  cursor:pointer;
+  margin:20px auto;
+  max-width:400px;
+}
+
+.upload-box:hover{
+  background:rgba(255,255,255,0.05);
+}
+
+/* Slider */
+.slider{
+  width:80%;
+}
+
+/* Button */
+button{
+  padding:12px 25px;
+  border:none;
+  border-radius:10px;
+  background:#00e6ff;
+  color:black;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+img{
+  max-width:300px;
+  margin-top:20px;
+  border-radius:10px;
+}
+
+/* Footer SEO content */
+.seo{
+  max-width:700px;
+  margin:50px auto;
+  color:#bbb;
+  font-size:14px;
+  line-height:1.6;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>🖼 Free Image Compressor</h1>
+  <p>Reduce image size without losing quality</p>
+
+  <div class="upload-box" onclick="fileInput.click()">
+    Click to Upload Image
+    <input type="file" id="fileInput" hidden accept="image/*">
+  </div>
+
+  <p>Compression Quality: <span id="qualityValue">70</span>%</p>
+  <input type="range" min="10" max="100" value="70" class="slider" id="quality">
+
+  <br><br>
+  <button onclick="compressImage()">Compress Image</button>
+
+  <div>
+    <img id="preview">
+  </div>
+
+  <br>
+  <a id="downloadBtn" style="display:none;">
+    <button>Download Image</button>
+  </a>
+
+</div>
+
+<!-- SEO CONTENT (VERY IMPORTANT) -->
+<div class="seo">
+<h2>Free Online Image Compressor Tool</h2>
+<p>
+This free image compressor allows you to reduce image size online without losing quality.
+You can compress JPG and PNG images instantly using this fast and secure tool.
+No upload to server, everything works in your browser for maximum privacy.
+</p>
+
+<p>
+Use this tool to optimize images for websites, social media, and faster loading speed.
+Perfect for bloggers, developers, and students.
+</p>
+</div>
+
+<script>
+let originalImage;
+
+const fileInput = document.getElementById("fileInput");
+const preview = document.getElementById("preview");
+const qualitySlider = document.getElementById("quality");
+const qualityValue = document.getElementById("qualityValue");
+
+qualitySlider.oninput = () => {
+  qualityValue.innerText = qualitySlider.value;
+};
+
+fileInput.onchange = () => {
+  const file = fileInput.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e){
+    preview.src = e.target.result;
+    originalImage = new Image();
+    originalImage.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+};
+
+function compressImage(){
+  if(!originalImage){
+    alert("Upload image first!");
+    return;
+  }
+
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = originalImage.width;
+  canvas.height = originalImage.height;
+
+  ctx.drawImage(originalImage,0,0);
+
+  let quality = qualitySlider.value / 100;
+
+  const compressedData = canvas.toDataURL("image/jpeg", quality);
+
+  preview.src = compressedData;
+
+  const downloadBtn = document.getElementById("downloadBtn");
+  downloadBtn.href = compressedData;
+  downloadBtn.download = "compressed.jpg";
+  downloadBtn.style.display = "inline-block";
+}
+</script>
+
+</body>
+</html>
