@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>EMI Calculator Online - Loan EMI Calculator India | Free Tools Kit</title>
+
+<meta name="description" content="Calculate your loan EMI online instantly with our free EMI calculator. Get monthly EMI, total interest and payment details for home loan, car loan and personal loan in India.">
+
+<meta name="keywords" content="EMI Calculator, Loan EMI Calculator India, Home Loan EMI, Car Loan EMI, Personal Loan EMI Calculator, EMI Calculation Tool">
+
+<meta name="author" content="Free Tools Kit">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://yourdomain.com/emi-calculator.html">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+  text-align:center;
+}
+
+header{
+  padding:20px;
+  font-size:26px;
+  font-weight:bold;
+}
+
+.container{
+  margin-top:30px;
+}
+
+input, button{
+  padding:12px;
+  margin:10px;
+  border:none;
+  border-radius:10px;
+  width:250px;
+}
+
+button{
+  background:#00c6ff;
+  cursor:pointer;
+}
+
+.result{
+  margin-top:20px;
+  font-size:20px;
+}
+
+/* SEO Content */
+.content{
+  max-width:700px;
+  margin:auto;
+  padding:20px;
+  text-align:left;
+  line-height:1.6;
+}
+
+/* Footer */
+footer{
+  background:#0f2027;
+  color:#ccc;
+  padding:25px;
+  text-align:center;
+  border-top:1px solid rgba(255,255,255,0.1);
+  margin-top:40px;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>EMI Calculator</header>
+
+<div class="container">
+
+<h2>Loan EMI Calculator</h2>
+
+<input type="number" id="amount" placeholder="Loan Amount (₹)">
+<br>
+
+<input type="number" id="rate" placeholder="Interest Rate (%)">
+<br>
+
+<input type="number" id="time" placeholder="Time (Years)">
+<br>
+
+<button onclick="calculateEMI()">Calculate EMI</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<!-- SEO CONTENT -->
+<div class="content">
+
+<h2>EMI Calculator Online</h2>
+
+<p>
+Use this free EMI calculator to calculate your monthly loan EMI easily. Whether you are planning a home loan, car loan or personal loan, this tool helps you find the exact EMI amount instantly.
+</p>
+
+<h3>How EMI is Calculated?</h3>
+
+<p>
+EMI (Equated Monthly Installment) is calculated based on loan amount, interest rate and tenure. Our calculator uses a standard formula to give accurate results.
+</p>
+
+<h3>Benefits of Using EMI Calculator</h3>
+
+<ul>
+<li>Quick and accurate EMI calculation</li>
+<li>Helps in financial planning</li>
+<li>Compare different loan options</li>
+<li>Free and easy to use</li>
+</ul>
+
+</div>
+
+<script>
+function calculateEMI(){
+
+let P = document.getElementById("amount").value;
+let R = document.getElementById("rate").value;
+let N = document.getElementById("time").value;
+
+if(P=="" || R=="" || N==""){
+document.getElementById("result").innerText="Please fill all fields!";
+return;
+}
+
+R = R / (12 * 100);
+N = N * 12;
+
+let EMI = (P * R * Math.pow(1+R,N)) / (Math.pow(1+R,N)-1);
+
+let totalPayment = EMI * N;
+let totalInterest = totalPayment - P;
+
+document.getElementById("result").innerHTML =
+`Monthly EMI: <br><b>₹ ${EMI.toFixed(2)}</b>
+<br><br>Total Payment: ₹ ${totalPayment.toFixed(2)}
+<br>Total Interest: ₹ ${totalInterest.toFixed(2)}`;
+}
+</script>
+
+<!-- FOOTER -->
+<footer>
+
+  <div style="margin-bottom:12px;">
+    <a href="about.html" style="color:#fff; margin:0 10px; text-decoration:none;">About</a> |
+    <a href="contact.html" style="color:#fff; margin:0 10px; text-decoration:none;">Contact</a> |
+    <a href="privacy.html" style="color:#fff; margin:0 10px; text-decoration:none;">Privacy Policy</a>
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <a href="index.html" style="color:#aaa; margin:0 10px; text-decoration:none;">Home</a> |
+    <a href="#" style="color:#aaa; margin:0 10px; text-decoration:none;">Tools</a>
+  </div>
+
+  <p style="max-width:500px; margin:auto; font-size:14px;">
+    Free Tools Kit provides free online tools like calculators, PDF tools, image tools and more.
+  </p>
+
+  <p style="margin-top:12px; font-size:13px; color:#777;">
+    © 2026 Free Tools Kit | All Rights Reserved
+  </p>
+
+</footer>
+
+</body>
+  </html>
