@@ -116,6 +116,26 @@ Enter your text or link in the input box and click on generate. Your QR code wil
 </ul>
 
 </div>
+  <script>
+function generateQR(){
+let text = document.getElementById("qrText").value;
+
+if(text==""){
+document.getElementById("qr").innerText="Please enter text!";
+return;
+}
+
+let qrURL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(text)}`;
+
+document.getElementById("qr").innerHTML = `
+<img id="qrImage" src="${qrURL}">
+<br><br>
+<a href="${qrURL}" download="qr-code.png">
+<button>Download QR Code</button>
+</a>
+`;
+}
+  </script>
 
 <script>
 function generateQR(){
