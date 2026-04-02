@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>GST Calculator Online - Free Tools Kit</title>
+
+<meta name="description" content="Calculate GST easily online. Add GST, remove GST, and split CGST SGST instantly with this free GST calculator.">
+
+<meta name="keywords" content="GST calculator, GST online, CGST SGST calculator, tax calculator India">
+
+<meta name="author" content="Free Tools Kit">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://yourdomain.com/gst-calculator.html">
+
+<style>
+
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+  text-align:center;
+}
+
+header{
+  padding:20px;
+  font-size:26px;
+  font-weight:bold;
+}
+
+.container{
+  margin-top:30px;
+}
+
+input, select, button{
+  padding:12px;
+  margin:10px;
+  border:none;
+  border-radius:10px;
+  width:250px;
+}
+
+button{
+  background:#00c6ff;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.result{
+  margin-top:20px;
+  font-size:20px;
+}
+
+.content{
+  max-width:700px;
+  margin:auto;
+  padding:20px;
+  text-align:left;
+  line-height:1.6;
+}
+
+/* Footer */
+footer{
+  background:#0f2027;
+  color:#ccc;
+  padding:25px;
+  text-align:center;
+  border-top:1px solid rgba(255,255,255,0.1);
+  margin-top:40px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>GST Calculator</header>
+
+<div class="container">
+
+<h2>Calculate GST Easily</h2>
+
+<input type="number" id="amount" placeholder="Enter Amount">
+
+<select id="gstRate">
+  <option value="5">5% GST</option>
+  <option value="12">12% GST</option>
+  <option value="18" selected>18% GST</option>
+  <option value="28">28% GST</option>
+</select>
+
+<br>
+
+<button onclick="addGST()">Add GST</button>
+<button onclick="removeGST()">Remove GST</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<!-- SEO CONTENT -->
+<div class="content">
+
+<h2>Free GST Calculator Online</h2>
+
+<p>
+This GST calculator helps you calculate GST instantly. You can add GST to price or remove GST from total amount easily.
+</p>
+
+<h3>What is GST?</h3>
+
+<p>
+GST (Goods and Services Tax) is a tax applied on goods and services in India. This tool helps you calculate tax quickly and accurately.
+</p>
+
+<h3>Features</h3>
+
+<ul>
+<li>Instant GST calculation</li>
+<li>Supports multiple GST rates</li>
+<li>Add GST and remove GST option</li>
+<li>Easy and mobile friendly</li>
+</ul>
+
+</div>
+
+<script>
+
+function addGST(){
+
+let amount = parseFloat(document.getElementById("amount").value);
+let rate = parseFloat(document.getElementById("gstRate").value);
+
+if(isNaN(amount)){
+document.getElementById("result").innerText = "Please enter valid amount!";
+return;
+}
+
+let gst = (amount * rate) / 100;
+let total = amount + gst;
+
+document.getElementById("result").innerHTML =
+`GST Amount: <b>₹${gst.toFixed(2)}</b><br>Total Price: <b>₹${total.toFixed(2)}</b>`;
+}
+
+function removeGST(){
+
+let amount = parseFloat(document.getElementById("amount").value);
+let rate = parseFloat(document.getElementById("gstRate").value);
+
+if(isNaN(amount)){
+document.getElementById("result").innerText = "Please enter valid amount!";
+return;
+}
+
+let base = amount / (1 + rate/100);
+let gst = amount - base;
+
+document.getElementById("result").innerHTML =
+`Base Price: <b>₹${base.toFixed(2)}</b><br>GST Removed: <b>₹${gst.toFixed(2)}</b>`;
+}
+
+</script>
+
+<!-- FOOTER -->
+<footer>
+
+  <div style="margin-bottom:12px;">
+    <a href="about.html" style="color:#fff; margin:0 10px; text-decoration:none;">About</a> |
+    <a href="contact.html" style="color:#fff; margin:0 10px; text-decoration:none;">Contact</a> |
+    <a href="privacy.html" style="color:#fff; margin:0 10px; text-decoration:none;">Privacy Policy</a>
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <a href="index.html" style="color:#aaa; margin:0 10px; text-decoration:none;">Home</a> |
+    <a href="#" style="color:#aaa; margin:0 10px; text-decoration:none;">Tools</a>
+  </div>
+
+  <p style="max-width:500px; margin:auto; font-size:14px;">
+    Free Tools Kit provides free online tools like calculators, PDF tools, image tools and more.
+  </p>
+
+  <p style="margin-top:12px; font-size:13px; color:#777;">
+    © 2026 Free Tools Kit | All Rights Reserved
+  </p>
+
+</footer>
+
+</body>
+</html>
