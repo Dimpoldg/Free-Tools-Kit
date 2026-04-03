@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>WhatsApp Chat Generator</title>
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<style>
+body{
+  margin:0;
+  font-family: Arial;
+  background:#111b21;
+  color:white;
+  text-align:center;
+}
+
+/* PHONE */
+.phone{
+  width:360px;
+  margin:auto;
+  border-radius:20px;
+  overflow:hidden;
+  background:#0b141a;
+}
+
+/* HEADER */
+.header{
+  background:#202c33;
+  display:flex;
+  align-items:center;
+  padding:10px;
+}
+
+.header img{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  margin-right:10px;
+}
+
+.name{
+  font-weight:bold;
+}
+
+.status{
+  font-size:12px;
+  color:#8696a0;
+}
+
+/* CHAT */
+.chat{
+  height:400px;
+  overflow-y:auto;
+  padding:10px;
+  background:#0b141a;
+}
+
+/* MESSAGE ROW */
+.row{
+  display:flex;
+  margin:5px 0;
+}
+
+.left{
+  justify-content:flex-start;
+}
+
+.right{
+  justify-content:flex-end;
+}
+
+/* MESSAGE BOX */
+.msg{
+  max-width:65%;
+  padding:8px;
+  border-radius:10px;
+  font-size:14px;
+}
+
+.left .msg{
+  background:#202c33;
+  color:white;
+}
+
+.right .msg{
+  background:#005c4b;
+  color:white;
+}
+
+/* TIME */
+.time{
+  font-size:10px;
+  display:block;
+  text-align:right;
+  opacity:0.7;
+}
+
+/* DP */
+.dp{
+  width:25px;
+  height:25px;
+  border-radius:50%;
+  margin:3px;
+}
+
+/* CONTROLS */
+.controls{
+  padding:10px;
+}
+
+input, select, button{
+  padding:8px;
+  margin:3px;
+  border-radius:8px;
+  border:none;
+}
+</style>
+
+</head>
+
+<body>
+
+<h3>WhatsApp Chat Generator</h3>
+
+<div class="phone" id="capture">
+
+<div class="header">
+  <img id="dpOther" src="https://via.placeholder.com/40">
+  <div>
+    <div class="name" id="chatName">Friend</div>
+    <div class="status">online</div>
+  </div>
+</div>
+
+<div class="chat" id="chat"></div>
+
+</div>
+
+<div class="controls">
+
+<!-- DP SET -->
+<input type="file" id="dp1"> Other DP  
+<input type="file" id="dp2"> Your DP  
+<button onclick="setDP()">Set DP</button><br>
+
+<!-- NAME -->
+<input type="text" id="name" placeholder="Friend Name">
+<button onclick="setName()">Set Name</button><br>
+
+<!-- MESSAGE -->
+<input type="text" id="message" placeholder="Type message">
+
+<select id="sender">
+  <option value="right">You</option>
+  <option value="left">Other</option>
+</select>
+
+<button onclick="send()">Send</button><br>
+
+<button onclick="download()">📸 Download</button>
+<button onclick="clearChat()">Clear</button>
+
+</div>
+
+<script>
+let yourDP = "";
+let otherDP = "";
+
+function setDP(){
+  let dpOther = document.getElementById("dp1").files[0];
+  let dpYou = document.getElementById("dp2").files[0];
+
+  if(dpOther){
+    otherDP = URL.createObjectURL(dpOther);
+    document.getElementById("dpOther").src = otherDP;
+  }
+
+  if(dpYou){
+    yourDP = URL.createObjectURL(dpYou);
+  }
+}
+
+function setName(){
+  document.getElementById("chatName").innerText =
+    document.getElementById("name").value;
+}
+
+function send(){
+  let msg = document.getElementById("message").value;
+  let side = document.getElementById("sender").value;
+
+  if(msg.trim() === "") return;
+
+  let row = document.createElement("div");
+  row.className = "row " + side;
+
+  let box = document.createElement("div");
+  box.className = "msg";
+
+  let time = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+
+  box.innerHTML = msg + "<span class='time'>" + time + "</span>";
+
+  let dp = document.createElement("img");
+  dp.className = "dp";
+  dp.src = side === "right" ? yourDP || "https://via.placeholder.com/25" : otherDP || "https://via.placeholder.com/25";
+
+  if(side === "right"){
+    row.appendChild(box);
+    row.appendChild(dp);
+  }else{
+    row.appendChild(dp);
+    row.appendChild(box);
+  }
+
+  document.getElementById("chat").appendChild(row);
+
+  document.getElementById("message").value = "";
+
+  let chatBox = document.getElementById("chat");
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function clearChat(){
+  document.getElementById("chat").innerHTML = "";
+}
+
+function download(){
+  html2canvas(document.getElementById("capture")).then(canvas=>{
+    let link = document.createElement("a");
+    link.download = "chat.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+}
+</script>
+
+</body>
+  </html>
