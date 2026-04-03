@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Percentage Calculator Online - Free Tools Kit</title>
+<title>Fake WhatsApp Chat Generator Online - Free Tools Kit</title>
 
-<meta name="description" content="Calculate percentage easily with our free online percentage calculator. Find percentage, increase, decrease and more instantly.">
+<meta name="description" content="Create fake WhatsApp chats online with real look. Generate chat screenshots with custom messages, profile pictures and download instantly.">
 
-<meta name="keywords" content="Percentage Calculator, Calculate Percentage, Percentage Increase, Percentage Decrease, Online Calculator Tool">
+<meta name="keywords" content="Fake WhatsApp Chat Generator, WhatsApp Chat Maker, Fake Chat Screenshot, WhatsApp Fake Message Tool">
 
 <meta name="author" content="Free Tools Kit">
 
@@ -15,33 +15,110 @@
 
 <meta name="robots" content="index, follow">
 
-<link rel="canonical" href="https://yourdomain.com/percentage-calculator.html">
+<link rel="canonical" href="https://yourdomain.com/fake-whatsapp-chat-generator.html">
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 <style>
 body{
   margin:0;
   font-family:Arial;
-  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-  color:white;
+  background:#ece5dd;
   text-align:center;
 }
 
+/* HEADER */
 header{
   padding:20px;
   font-size:26px;
   font-weight:bold;
 }
 
-.container{
-  margin-top:30px;
+/* PHONE UI */
+.phone{
+  width:350px;
+  margin:auto;
+  border-radius:15px;
+  overflow:hidden;
+  background:#fff;
 }
 
-input, button{
-  padding:12px;
-  margin:10px;
-  border:none;
+/* TOP BAR */
+.header{
+  background:#075E54;
+  color:white;
+  display:flex;
+  align-items:center;
+  padding:10px;
+}
+
+.header img{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  margin-right:10px;
+}
+
+.status{
+  font-size:12px;
+}
+
+/* CHAT */
+.chat{
+  height:400px;
+  overflow-y:auto;
+  padding:10px;
+  background:#efeae2;
+}
+
+/* MESSAGE */
+.row{
+  display:flex;
+  margin:5px 0;
+}
+
+.left{ justify-content:flex-start; }
+.right{ justify-content:flex-end; }
+
+.msg{
+  max-width:65%;
+  padding:8px;
   border-radius:10px;
-  width:250px;
+  font-size:14px;
+}
+
+.left .msg{
+  background:#fff;
+}
+
+.right .msg{
+  background:#DCF8C6;
+}
+
+.time{
+  font-size:10px;
+  display:block;
+  text-align:right;
+}
+
+/* DP */
+.dp{
+  width:25px;
+  height:25px;
+  border-radius:50%;
+  margin:3px;
+}
+
+/* CONTROLS */
+.container{
+  margin-top:20px;
+}
+
+input, select, button{
+  padding:10px;
+  margin:5px;
+  border-radius:8px;
+  border:none;
 }
 
 button{
@@ -49,11 +126,7 @@ button{
   cursor:pointer;
 }
 
-.result{
-  margin-top:20px;
-  font-size:20px;
-}
-
+/* CONTENT */
 .content{
   max-width:700px;
   margin:auto;
@@ -62,13 +135,11 @@ button{
   line-height:1.6;
 }
 
-/* Footer */
+/* FOOTER */
 footer{
   background:#0f2027;
   color:#ccc;
   padding:25px;
-  text-align:center;
-  border-top:1px solid rgba(255,255,255,0.1);
   margin-top:40px;
 }
 </style>
@@ -77,89 +148,152 @@ footer{
 
 <body>
 
-<header>Percentage Calculator</header>
+<header>Fake WhatsApp Chat Generator</header>
+
+<!-- TOOL -->
+<div class="phone" id="capture">
+
+<div class="header">
+  <img id="dpOther" src="https://via.placeholder.com/40">
+  <div>
+    <div id="chatName">Friend</div>
+    <div class="status">online</div>
+  </div>
+</div>
+
+<div class="chat" id="chat"></div>
+
+</div>
 
 <div class="container">
 
-<h2>Calculate Percentage</h2>
+<input type="file" id="dp1"> Other DP  
+<input type="file" id="dp2"> Your DP  
+<button onclick="setDP()">Set DP</button><br>
 
-<input type="number" id="value" placeholder="Value">
-<br>
+<input type="text" id="name" placeholder="Friend Name">
+<button onclick="setName()">Set Name</button><br>
 
-<input type="number" id="total" placeholder="Total">
-<br>
+<input type="text" id="message" placeholder="Type message">
 
-<button onclick="calculatePercentage()">Calculate</button>
+<select id="side">
+  <option value="right">You</option>
+  <option value="left">Other</option>
+</select>
 
-<div class="result" id="result"></div>
+<button onclick="send()">Send</button><br>
+
+<button onclick="download()">📸 Download Chat</button>
+<button onclick="clearChat()">Clear</button>
 
 </div>
 
 <!-- SEO CONTENT -->
 <div class="content">
 
-<h2>Free Percentage Calculator</h2>
+<h2>Free Fake WhatsApp Chat Generator</h2>
 
 <p>
-This free percentage calculator helps you quickly calculate percentages online. You can easily find what percentage a value is of another value.
+This free online fake WhatsApp chat generator allows you to create realistic chat conversations easily. You can customize messages, profile pictures and download chat screenshots instantly.
 </p>
 
-<h3>How to Calculate Percentage?</h3>
-
-<p>
-To calculate percentage, divide the value by the total and multiply by 100. Our tool does this automatically and gives you instant results.
-</p>
-
-<h3>Uses of Percentage Calculator</h3>
+<h3>How to Use?</h3>
 
 <ul>
-<li>Calculate exam marks percentage</li>
-<li>Find discounts and offers</li>
-<li>Business and finance calculations</li>
-<li>Daily life calculations</li>
+<li>Upload profile pictures</li>
+<li>Enter chat name</li>
+<li>Type messages and select sender</li>
+<li>Click download to save screenshot</li>
+</ul>
+
+<h3>Features</h3>
+
+<ul>
+<li>Real WhatsApp style UI</li>
+<li>Custom messages</li>
+<li>Two profile pictures</li>
+<li>Instant screenshot download</li>
 </ul>
 
 </div>
 
 <script>
-function calculatePercentage(){
+let yourDP="", otherDP="";
 
-let value = document.getElementById("value").value;
-let total = document.getElementById("total").value;
+function setDP(){
+  let d1=document.getElementById("dp1").files[0];
+  let d2=document.getElementById("dp2").files[0];
 
-if(value=="" || total==""){
-document.getElementById("result").innerText="Please fill all fields!";
-return;
+  if(d1){
+    otherDP=URL.createObjectURL(d1);
+    document.getElementById("dpOther").src=otherDP;
+  }
+
+  if(d2){
+    yourDP=URL.createObjectURL(d2);
+  }
 }
 
-let percentage = (value / total) * 100;
+function setName(){
+  document.getElementById("chatName").innerText=
+    document.getElementById("name").value;
+}
 
-document.getElementById("result").innerHTML =
-`Result: <br><b>${percentage.toFixed(2)}%</b>`;
+function send(){
+  let msg=document.getElementById("message").value;
+  let side=document.getElementById("side").value;
+
+  if(msg==="") return;
+
+  let row=document.createElement("div");
+  row.className="row "+side;
+
+  let box=document.createElement("div");
+  box.className="msg";
+
+  let time=new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+
+  box.innerHTML=msg+"<span class='time'>"+time+"</span>";
+
+  let dp=document.createElement("img");
+  dp.className="dp";
+  dp.src=side==="right"?yourDP:otherDP;
+
+  if(side==="right"){
+    row.appendChild(box);
+    row.appendChild(dp);
+  }else{
+    row.appendChild(dp);
+    row.appendChild(box);
+  }
+
+  document.getElementById("chat").appendChild(row);
+
+  document.getElementById("message").value="";
+}
+
+function clearChat(){
+  document.getElementById("chat").innerHTML="";
+}
+
+function download(){
+  html2canvas(document.getElementById("capture")).then(canvas=>{
+    let link=document.createElement("a");
+    link.download="chat.png";
+    link.href=canvas.toDataURL();
+    link.click();
+  });
 }
 </script>
 
 <!-- FOOTER -->
 <footer>
 
-  <div style="margin-bottom:12px;">
-    <a href="about.html" style="color:#fff; margin:0 10px; text-decoration:none;">About</a> |
-    <a href="contact.html" style="color:#fff; margin:0 10px; text-decoration:none;">Contact</a> |
-    <a href="privacy.html" style="color:#fff; margin:0 10px; text-decoration:none;">Privacy Policy</a>
-  </div>
+<a href="about.html">About</a> |
+<a href="contact.html">Contact</a> |
+<a href="privacy.html">Privacy Policy</a>
 
-  <div style="margin-bottom:12px;">
-    <a href="index.html" style="color:#aaa; margin:0 10px; text-decoration:none;">Home</a> |
-    <a href="#" style="color:#aaa; margin:0 10px; text-decoration:none;">Tools</a>
-  </div>
-
-  <p style="max-width:500px; margin:auto; font-size:14px;">
-    Free Tools Kit provides free online tools like calculators, PDF tools, image tools and more.
-  </p>
-
-  <p style="margin-top:12px; font-size:13px; color:#777;">
-    © 2026 Free Tools Kit | All Rights Reserved
-  </p>
+<p>© 2026 Free Tools Kit</p>
 
 </footer>
 
