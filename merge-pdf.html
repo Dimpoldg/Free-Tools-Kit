@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Merge PDF Online - Combine PDF Files Free Tool</title>
+
+<meta name="description" content="Merge multiple PDF files into one online for free. Combine PDFs quickly without uploading. 100% secure and fast PDF merger tool.">
+
+<meta name="keywords" content="merge pdf, combine pdf online, pdf merger, join pdf files free">
+
+<meta name="author" content="Free Tools Kit">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://yourdomain.com/merge-pdf.html">
+
+<style>
+
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+  text-align:center;
+}
+
+header{
+  padding:20px;
+  font-size:26px;
+  font-weight:bold;
+}
+
+.container{
+  margin-top:30px;
+}
+
+input, button{
+  padding:12px;
+  margin:10px;
+  border:none;
+  border-radius:10px;
+  width:250px;
+}
+
+button{
+  background:#00c6ff;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.result{
+  margin-top:20px;
+  font-size:18px;
+}
+
+/* SEO CONTENT */
+.content{
+  max-width:700px;
+  margin:auto;
+  padding:20px;
+  text-align:left;
+  line-height:1.6;
+}
+
+/* Footer */
+footer{
+  background:#0f2027;
+  color:#ccc;
+  padding:25px;
+  text-align:center;
+  border-top:1px solid rgba(255,255,255,0.1);
+  margin-top:40px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>Merge PDF</header>
+
+<div class="container">
+
+<h2>Combine Multiple PDF Files</h2>
+
+<input type="file" id="pdfInput" multiple accept="application/pdf">
+<br>
+
+<button onclick="mergePDF()">Merge PDF</button>
+<button onclick="downloadPDF()">Download</button>
+
+<div class="result" id="status">Upload at least 2 PDF files</div>
+
+</div>
+
+<!-- SEO CONTENT -->
+<div class="content">
+
+<h2>Free PDF Merger Tool</h2>
+
+<p>
+This tool helps you merge multiple PDF files into a single document quickly and easily. No file upload is required, everything works directly in your browser for maximum privacy.
+</p>
+
+<h3>Features</h3>
+
+<ul>
+<li>Merge unlimited PDF files</li>
+<li>Fast browser-based processing</li>
+<li>No upload required (secure)</li>
+<li>Works on mobile and desktop</li>
+</ul>
+
+<h3>Uses</h3>
+
+<ul>
+<li>Combine documents into one file</li>
+<li>Merge study notes PDFs</li>
+<li>Join scanned documents</li>
+<li>Create one final PDF report</li>
+</ul>
+
+</div>
+
+<!-- PDF LIB -->
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+
+<script>
+
+let mergedPdfBytes = null;
+
+async function mergePDF(){
+
+const { PDFDocument } = PDFLib;
+
+let files = document.getElementById("pdfInput").files;
+
+if(files.length < 2){
+document.getElementById("status").innerText = "Select at least 2 PDFs!";
+return;
+}
+
+document.getElementById("status").innerText = "Merging PDFs...";
+
+const mergedPdf = await PDFDocument.create();
+
+for(let i=0;i<files.length;i++){
+
+let file = files[i];
+let arrayBuffer = await file.arrayBuffer();
+
+let pdf = await PDFDocument.load(arrayBuffer);
+let pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+
+pages.forEach(page => mergedPdf.addPage(page));
+}
+
+mergedPdfBytes = await mergedPdf.save();
+
+document.getElementById("status").innerText = "PDF merged successfully!";
+}
+
+function downloadPDF(){
+
+if(!mergedPdfBytes){
+document.getElementById("status").innerText = "Merge PDF first!";
+return;
+}
+
+let blob = new Blob([mergedPdfBytes], { type: "application/pdf" });
+let link = document.createElement("a");
+
+link.href = URL.createObjectURL(blob);
+link.download = "merged.pdf";
+link.click();
+
+}
+
+</script>
+
+<!-- FOOTER -->
+<footer>
+
+  <div style="margin-bottom:12px;">
+    <a href="about.html" style="color:#fff; margin:0 10px; text-decoration:none;">About</a> |
+    <a href="contact.html" style="color:#fff; margin:0 10px; text-decoration:none;">Contact</a> |
+    <a href="privacy.html" style="color:#fff; margin:0 10px; text-decoration:none;">Privacy Policy</a>
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <a href="index.html" style="color:#aaa; margin:0 10px; text-decoration:none;">Home</a> |
+    <a href="#" style="color:#aaa; margin:0 10px; text-decoration:none;">Tools</a>
+  </div>
+
+  <p style="max-width:500px; margin:auto; font-size:14px;">
+    Free Tools Kit provides free online tools like calculators, PDF tools, image tools and more.
+  </p>
+
+  <p style="margin-top:12px; font-size:13px; color:#777;">
+    © 2026 Free Tools Kit | All Rights Reserved
+  </p>
+
+</footer>
+
+</body>
+</html>
