@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Contact Us - Free Tools Kit</title>
+
+<meta name="description" content="Contact Free Tools Kit for support, suggestions or business inquiries.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+}
+
+header{
+  text-align:center;
+  padding:20px;
+  font-size:26px;
+  font-weight:bold;
+}
+
+.container{
+  max-width:600px;
+  margin:auto;
+  padding:20px;
+  text-align:center;
+}
+
+input, textarea, button{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border:none;
+  border-radius:10px;
+}
+
+textarea{
+  height:120px;
+}
+
+button{
+  background:#00c6ff;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.contact-info{
+  margin-top:20px;
+  font-size:16px;
+}
+
+footer{
+  margin-top:40px;
+  padding:20px;
+  background:#0f2027;
+  text-align:center;
+  color:#ccc;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>Contact Us</header>
+
+<div class="container">
+
+<h2>Get in Touch</h2>
+
+<p>If you have any questions, suggestions or business inquiries, feel free to contact us.</p>
+
+<form onsubmit="sendMail(event)">
+<input type="text" id="name" placeholder="Your Name" required>
+<input type="email" id="email" placeholder="Your Email" required>
+<textarea id="message" placeholder="Your Message" required></textarea>
+
+<button type="submit">Send Message</button>
+</form>
+
+<div class="contact-info">
+<p><strong>Email:</strong> dimpol.bailung@gmail.com</p>
+</div>
+
+</div>
+
+<script>
+
+function sendMail(e){
+e.preventDefault();
+
+let name = document.getElementById("name").value;
+let email = document.getElementById("email").value;
+let message = document.getElementById("message").value;
+
+let mailtoLink = `mailto:dimpol.bailung@gmail.com?subject=Contact from ${name}&body=Email: ${email}%0A%0A${message}`;
+
+window.location.href = mailtoLink;
+}
+
+</script>
+
+<footer>
+© 2026 Free Tools Kit | All Rights Reserved
+</footer>
+
+</body>
+</html>
