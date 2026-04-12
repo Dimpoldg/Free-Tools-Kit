@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Text to Voice Generator (Hindi + Assamese) - Free Tools Kit</title>
+
+<meta name="description" content="Convert text to voice online for free. Hindi and Assamese text to speech generator with download support.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#0f2027;
+  color:white;
+  text-align:center;
+}
+
+/* HEADER */
+header{
+  padding:20px;
+  font-size:26px;
+  font-weight:bold;
+}
+
+/* TOOL BOX */
+.container{
+  max-width:600px;
+  margin:auto;
+  background:#203a43;
+  padding:20px;
+  border-radius:12px;
+}
+
+/* INPUT */
+textarea{
+  width:90%;
+  height:120px;
+  padding:10px;
+  border-radius:10px;
+  border:none;
+}
+
+select, button{
+  padding:10px;
+  margin:10px;
+  border-radius:8px;
+  border:none;
+}
+
+button{
+  background:#00c6ff;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/* CONTENT */
+.content{
+  max-width:700px;
+  margin:auto;
+  padding:20px;
+  text-align:left;
+  line-height:1.6;
+}
+
+/* FOOTER */
+footer{
+  background:#000;
+  color:#ccc;
+  padding:20px;
+  margin-top:40px;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>🎙️ Text to Voice Generator</header>
+
+<!-- TOOL -->
+<div class="container">
+
+<textarea id="text" placeholder="Yaha text likho..."></textarea><br>
+
+<select id="voiceSelect"></select><br>
+
+<button onclick="speak()">🔊 Speak</button>
+<button onclick="stop()">⛔ Stop</button>
+<button onclick="download()">⬇ Download Audio</button>
+
+</div>
+
+<!-- SEO CONTENT -->
+<div class="content">
+
+<h2>Free Text to Voice Generator</h2>
+
+<p>
+This free online text to speech tool allows you to convert text into voice instantly. It supports Hindi and some regional voices depending on your device.
+</p>
+
+<h3>How to Use?</h3>
+<ul>
+<li>Type your text</li>
+<li>Select voice</li>
+<li>Click Speak</li>
+<li>Download audio</li>
+</ul>
+
+<h3>Features</h3>
+<ul>
+<li>No API required</li>
+<li>Fast processing</li>
+<li>Mobile friendly</li>
+<li>Multiple voices</li>
+</ul>
+
+</div>
+
+<script>
+let voices=[];
+
+function loadVoices(){
+  voices=speechSynthesis.getVoices();
+  let select=document.getElementById("voiceSelect");
+  select.innerHTML="";
+
+  voices.forEach((voice,i)=>{
+    if(voice.lang.includes("hi") || voice.lang.includes("en") || voice.lang.includes("bn")){
+      let option=document.createElement("option");
+      option.value=i;
+      option.text=voice.name+" ("+voice.lang+")";
+      select.appendChild(option);
+    }
+  });
+}
+
+speechSynthesis.onvoiceschanged=loadVoices;
+
+function speak(){
+  let text=document.getElementById("text").value;
+  let index=document.getElementById("voiceSelect").value;
+
+  let speech=new SpeechSynthesisUtterance(text);
+  speech.voice=voices[index];
+
+  window.currentSpeech=speech;
+  speechSynthesis.speak(speech);
+}
+
+function stop(){
+  speechSynthesis.cancel();
+}
+
+/* DOWNLOAD AUDIO (RECORD SPEECH) */
+function download(){
+  let text=document.getElementById("text").value;
+
+  let utter=new SpeechSynthesisUtterance(text);
+
+  let audioCtx=new (window.AudioContext || window.webkitAudioContext)();
+  let dest=audioCtx.createMediaStreamDestination();
+
+  let mediaRecorder=new MediaRecorder(dest.stream);
+  let chunks=[];
+
+  mediaRecorder.ondataavailable=e=>chunks.push(e.data);
+
+  mediaRecorder.onstop=()=>{
+    let blob=new Blob(chunks,{type:'audio/wav'});
+    let url=URL.createObjectURL(blob);
+
+    let a=document.createElement("a");
+    a.href=url;
+    a.download="voice.wav";
+    a.click();
+  };
+
+  mediaRecorder.start();
+  speechSynthesis.speak(utter);
+
+  setTimeout(()=>{
+    mediaRecorder.stop();
+  },3000);
+}
+</script>
+
+<!-- FOOTER -->
+<footer>
+
+<a href="about.html">About</a> |
+<a href="contact.html">Contact</a> |
+<a href="privacy.html">Privacy Policy</a>
+
+<p>© 2026 Free Tools Kit</p>
+
+</footer>
+
+</body>
+</html>
