@@ -2,18 +2,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
-<title>Fake Incoming Call Generator Online - Free Tools Kit</title>
-
-<meta name="description" content="Create fake incoming call screens with real Android style. Customize name, number, photo and download screenshot instantly.">
-
-<meta name="keywords" content="Fake Call Generator, Incoming Call Screen, Fake Call App, Call Simulator Tool">
-
-<meta name="author" content="Free Tools Kit">
-
+<title>Incoming Call Tool</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<meta name="robots" content="index, follow">
 
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
@@ -21,45 +11,31 @@
 body{
   margin:0;
   font-family:Arial;
-  background:#ece5dd;
-  text-align:center;
-}
-
-/* HEADER */
-header{
-  padding:20px;
-  font-size:26px;
-  font-weight:bold;
-}
-
-/* PHONE UI */
-.phone{
-  width:350px;
-  margin:auto;
-  border-radius:15px;
-  overflow:hidden;
-  background:#000;
-  color:white;
-}
-
-/* CALL SCREEN */
-.screen{
-  height:420px;
-  background:url('https://images.unsplash.com/photo-1494526585095-c41746248156') center/cover;
-  position:relative;
-  backdrop-filter:blur(10px);
-}
-
-/* BLUR OVERLAY */
-.overlay{
-  position:absolute;
-  width:100%;
-  height:100%;
-  backdrop-filter:blur(15px);
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:center;
+  min-height:100vh;
+}
+
+/* TITLE */
+header{
+  color:white;
+  font-size:22px;
+  font-weight:bold;
+  margin:20px;
+}
+
+/* MAIN CARD */
+.card{
+  width:340px;
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(15px);
+  border-radius:20px;
+  padding:20px;
+  text-align:center;
+  color:white;
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
 }
 
 /* PROFILE */
@@ -77,81 +53,100 @@ header{
   100%{box-shadow:0 0 10px #00ffcc;}
 }
 
-.name{ font-size:22px; margin-top:10px; }
-.number{ color:#ccc; }
-.status{ margin-top:10px; color:#aaa; }
+/* TEXT */
+.name{
+  font-size:22px;
+  margin-top:10px;
+}
+
+.number{
+  color:#ccc;
+  margin-bottom:10px;
+}
+
+.status{
+  font-size:14px;
+  color:#aaa;
+  margin-bottom:20px;
+}
 
 /* BUTTONS */
 .btns{
-  margin-top:20px;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
 }
 
 button{
+  flex:1;
   padding:10px;
-  margin:5px;
   border:none;
-  border-radius:8px;
+  border-radius:10px;
+  font-weight:bold;
   cursor:pointer;
 }
 
-.accept{ background:green; color:white; }
-.reject{ background:red; color:white; }
+.accept{
+  background:#25D366;
+  color:white;
+}
+
+.reject{
+  background:#ff4d4d;
+  color:white;
+}
 
 /* CONTROLS */
-.container{
-  margin-top:20px;
+.controls{
+  width:340px;
+  margin-top:15px;
+  background:white;
+  padding:15px;
+  border-radius:15px;
 }
 
 input, button{
+  width:100%;
   padding:10px;
-  margin:5px;
+  margin:5px 0;
   border-radius:8px;
   border:none;
 }
 
 /* DOWNLOAD */
 .download{
-  background:#075E54;
+  background:#128C7E;
   color:white;
 }
 </style>
-
 </head>
 
 <body>
 
-<header>Fake Incoming Call Generator</header>
+<header>📞 Incoming Call Generator</header>
 
-<!-- CALL PREVIEW -->
-<div class="phone" id="capture">
-
-<div class="screen">
-
-<div class="overlay">
+<!-- CARD -->
+<div class="card" id="capture">
 
 <img id="img" class="profile" src="https://via.placeholder.com/120">
 
-<div id="nameShow" class="name">Rahul Sharma</div>
-<div id="numShow" class="number">+91 98765 43210</div>
+<div id="name" class="name">Rahul Sharma</div>
+<div id="number" class="number">+91 98765 43210</div>
 <div id="status" class="status">Incoming Call...</div>
 
 <div class="btns">
-<button class="accept">Accept</button>
-<button class="reject">Reject</button>
-</div>
-
-</div>
-
+<button class="accept" onclick="accept()">Accept</button>
+<button class="reject" onclick="reject()">Reject</button>
 </div>
 
 </div>
 
 <!-- CONTROLS -->
-<div class="container">
+<div class="controls">
 
 <input type="file" onchange="setImg(event)">
 
-<input type="text" id="name" placeholder="Name">
+<input type="text" id="n" placeholder="Name">
 <input type="text" id="num" placeholder="Number">
 
 <button onclick="setData()">Set Data</button>
@@ -160,38 +155,34 @@ input, button{
 
 </div>
 
-<!-- SEO CONTENT -->
-<div style="max-width:700px;margin:auto;text-align:left;padding:20px;line-height:1.6;">
-
-<h2>Fake Incoming Call Generator Tool</h2>
-
-<p>Create realistic fake incoming call screens just like Android. Customize caller name, number and profile photo easily.</p>
-
-<h3>Features</h3>
-<ul>
-<li>Real incoming call UI</li>
-<li>Custom name & number</li>
-<li>Photo upload support</li>
-<li>Download screenshot instantly</li>
-</ul>
-
-</div>
-
 <script>
 
+// IMAGE
 function setImg(e){
   document.getElementById("img").src =
     URL.createObjectURL(e.target.files[0]);
 }
 
+// DATA
 function setData(){
-  document.getElementById("nameShow").innerText =
-    document.getElementById("name").value;
+  document.getElementById("name").innerText =
+    document.getElementById("n").value;
 
-  document.getElementById("numShow").innerText =
+  document.getElementById("number").innerText =
     document.getElementById("num").value;
 }
 
+// ACCEPT
+function accept(){
+  document.getElementById("status").innerText="Call Connected";
+}
+
+// REJECT
+function reject(){
+  document.getElementById("status").innerText="Call Ended";
+}
+
+// DOWNLOAD
 function downloadCall(){
   html2canvas(document.getElementById("capture")).then(canvas=>{
     let a=document.createElement("a");
