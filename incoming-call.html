@@ -2,284 +2,203 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Incoming Call</title>
+
+<title>Fake Incoming Call Generator Online - Free Tools Kit</title>
+
+<meta name="description" content="Create fake incoming call screens with real Android style. Customize name, number, photo and download screenshot instantly.">
+
+<meta name="keywords" content="Fake Call Generator, Incoming Call Screen, Fake Call App, Call Simulator Tool">
+
+<meta name="author" content="Free Tools Kit">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="robots" content="index, follow">
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 <style>
 body{
   margin:0;
   font-family:Arial;
-  color:white;
-  background:url('https://images.unsplash.com/photo-1494526585095-c41746248156') no-repeat center/cover;
+  background:#ece5dd;
+  text-align:center;
 }
 
-/* BLUR */
+/* HEADER */
+header{
+  padding:20px;
+  font-size:26px;
+  font-weight:bold;
+}
+
+/* PHONE UI */
+.phone{
+  width:350px;
+  margin:auto;
+  border-radius:15px;
+  overflow:hidden;
+  background:#000;
+  color:white;
+}
+
+/* CALL SCREEN */
+.screen{
+  height:420px;
+  background:url('https://images.unsplash.com/photo-1494526585095-c41746248156') center/cover;
+  position:relative;
+  backdrop-filter:blur(10px);
+}
+
+/* BLUR OVERLAY */
 .overlay{
-  position:fixed;
+  position:absolute;
   width:100%;
   height:100%;
-  backdrop-filter: blur(20px);
+  backdrop-filter:blur(15px);
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
 }
 
-/* TOP */
-.top{
-  position:absolute;
-  top:20px;
-  width:90%;
-  display:flex;
-  justify-content:space-between;
-  font-size:14px;
-  color:#ccc;
-}
-
 /* PROFILE */
 .profile{
-  width:150px;
-  height:150px;
+  width:120px;
+  height:120px;
   border-radius:50%;
-  border:5px solid #00ffcc;
+  border:4px solid #00ffcc;
   animation:ring 2s infinite;
 }
 
 @keyframes ring{
   0%{box-shadow:0 0 10px #00ffcc;}
-  50%{box-shadow:0 0 40px #00ffcc;}
+  50%{box-shadow:0 0 30px #00ffcc;}
   100%{box-shadow:0 0 10px #00ffcc;}
 }
 
-.name{ font-size:26px; margin-top:10px; }
+.name{ font-size:22px; margin-top:10px; }
 .number{ color:#ccc; }
-.status{ margin-bottom:40px; color:#aaa; }
+.status{ margin-top:10px; color:#aaa; }
 
-.swipe-box{
-  position:relative;
-  width:90%;
-  height:100px;
+/* BUTTONS */
+.btns{
+  margin-top:20px;
 }
 
-.drag-btn{
-  position:absolute;
-  width:80px;
-  height:80px;
-  border-radius:50%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:30px;
-  top:10px;
+button{
+  padding:10px;
+  margin:5px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
 }
 
-.reject{ left:0; background:red; }
-.accept{ right:0; background:green; }
-
-.labels{
-  width:90%;
-  display:flex;
-  justify-content:space-between;
-  font-size:12px;
-  color:#ccc;
-}
+.accept{ background:green; color:white; }
+.reject{ background:red; color:white; }
 
 /* CONTROLS */
-.controls{
-  position:absolute;
-  top:10px;
-  left:10px;
-  background:rgba(0,0,0,0.4);
-  padding:10px;
-  border-radius:10px;
+.container{
+  margin-top:20px;
 }
 
 input, button{
-  padding:8px;
-  margin:3px;
-  border-radius:6px;
+  padding:10px;
+  margin:5px;
+  border-radius:8px;
   border:none;
 }
 
 /* DOWNLOAD */
-.download-btn{
-  position:absolute;
-  bottom:20px;
-  padding:10px 15px;
-  background:#ffcc00;
-  color:#000;
-  border-radius:10px;
-  font-weight:bold;
+.download{
+  background:#075E54;
+  color:white;
 }
 </style>
+
 </head>
 
 <body>
 
+<header>Fake Incoming Call Generator</header>
+
+<!-- CALL PREVIEW -->
+<div class="phone" id="capture">
+
+<div class="screen">
+
 <div class="overlay">
 
-<div class="top">
-  <div id="time"></div>
-  <div>Jio 4G 🔋67%</div>
+<img id="img" class="profile" src="https://via.placeholder.com/120">
+
+<div id="nameShow" class="name">Rahul Sharma</div>
+<div id="numShow" class="number">+91 98765 43210</div>
+<div id="status" class="status">Incoming Call...</div>
+
+<div class="btns">
+<button class="accept">Accept</button>
+<button class="reject">Reject</button>
 </div>
 
-<img id="img" class="profile" src="https://via.placeholder.com/150">
-
-<div id="name" class="name">Rahul Sharma</div>
-<div id="number" class="number">+91 98765 43210</div>
-<div id="status" class="status">Tap Start</div>
-
-<div class="swipe-box">
-  <div id="rejectBtn" class="drag-btn reject">📞</div>
-  <div id="acceptBtn" class="drag-btn accept">📞</div>
 </div>
 
-<div class="labels">
-  <span>Swipe Left</span>
-  <span>Swipe Right</span>
 </div>
-
-<button class="download-btn" onclick="downloadVCF()">Download Contact</button>
 
 </div>
 
 <!-- CONTROLS -->
-<div class="controls" id="controls">
+<div class="container">
+
 <input type="file" onchange="setImg(event)">
-<input type="text" id="n" placeholder="Name">
+
+<input type="text" id="name" placeholder="Name">
 <input type="text" id="num" placeholder="Number">
-<button onclick="setData()">Set</button>
-<button onclick="start()">Start</button>
+
+<button onclick="setData()">Set Data</button>
+
+<button class="download" onclick="downloadCall()">Download Screenshot</button>
+
 </div>
 
-<audio id="ringtone" src="https://www.soundjay.com/phone/phone-ring-01.mp3" loop></audio>
+<!-- SEO CONTENT -->
+<div style="max-width:700px;margin:auto;text-align:left;padding:20px;line-height:1.6;">
+
+<h2>Fake Incoming Call Generator Tool</h2>
+
+<p>Create realistic fake incoming call screens just like Android. Customize caller name, number and profile photo easily.</p>
+
+<h3>Features</h3>
+<ul>
+<li>Real incoming call UI</li>
+<li>Custom name & number</li>
+<li>Photo upload support</li>
+<li>Download screenshot instantly</li>
+</ul>
+
+</div>
 
 <script>
 
-// CLOCK
-setInterval(()=>{
-  document.getElementById("time").innerText =
-    new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-},1000);
-
-// IMAGE
 function setImg(e){
   document.getElementById("img").src =
     URL.createObjectURL(e.target.files[0]);
 }
 
-// SET DATA
 function setData(){
-  document.getElementById("name").innerText =
-    document.getElementById("n").value;
+  document.getElementById("nameShow").innerText =
+    document.getElementById("name").value;
 
-  document.getElementById("number").innerText =
+  document.getElementById("numShow").innerText =
     document.getElementById("num").value;
 }
 
-// AUDIO FIX
-let ringtone=document.getElementById("ringtone");
-
-document.body.addEventListener("click", ()=>{
-  ringtone.play().then(()=> ringtone.pause());
-},{once:true});
-
-// START
-let ringing=false;
-
-function start(){
-  document.getElementById("status").innerText="Incoming Call...";
-
-  ringtone.currentTime = 0;
-  ringtone.play().catch(()=>{});
-
-  ringing=true;
-
-  // ✅ ONLY NOW HIDE CONTROLS
-  document.getElementById("controls").style.display="none";
-
-  let vib=setInterval(()=>{
-    if(!ringing) return clearInterval(vib);
-    if(navigator.vibrate) navigator.vibrate(300);
-  },800);
-}
-
-// ACCEPT
-let timerSec=0;
-let timer;
-
-function accept(){
-  ringing=false;
-  ringtone.pause();
-
-  document.getElementById("status").innerText="Connected";
-
-  timer=setInterval(()=>{
-    timerSec++;
-    let m=Math.floor(timerSec/60);
-    let s=timerSec%60;
-    document.getElementById("status").innerText =
-      m+":"+(s<10?"0"+s:s);
-  },1000);
-}
-
-// REJECT
-function reject(){
-  ringing=false;
-  ringtone.pause();
-  document.getElementById("status").innerText="Call Ended";
-}
-
-// DRAG
-let dragging=null;
-
-let acceptBtn=document.getElementById("acceptBtn");
-let rejectBtn=document.getElementById("rejectBtn");
-
-[acceptBtn, rejectBtn].forEach(btn=>{
-  btn.addEventListener("touchstart", ()=> dragging=btn);
-});
-
-document.addEventListener("touchmove",(e)=>{
-  if(!dragging) return;
-  let x=e.touches[0].clientX;
-  dragging.style.left=(x-40)+"px";
-});
-
-document.addEventListener("touchend",()=>{
-  if(!dragging) return;
-
-  let rect=dragging.getBoundingClientRect();
-
-  if(dragging.id==="acceptBtn" && rect.left<window.innerWidth/2){
-    accept();
-  }
-
-  if(dragging.id==="rejectBtn" && rect.left>window.innerWidth/2){
-    reject();
-  }
-
-  acceptBtn.style.left="";
-  rejectBtn.style.left="";
-  dragging=null;
-});
-
-// DOWNLOAD CONTACT
-function downloadVCF(){
-  let name=document.getElementById("name").innerText;
-  let number=document.getElementById("number").innerText;
-
-  let vcf=`BEGIN:VCARD
-VERSION:3.0
-FN:${name}
-TEL:${number}
-END:VCARD`;
-
-  let blob=new Blob([vcf],{type:"text/vcard"});
-  let a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);
-  a.download=name+".vcf";
-  a.click();
+function downloadCall(){
+  html2canvas(document.getElementById("capture")).then(canvas=>{
+    let a=document.createElement("a");
+    a.download="incoming-call.png";
+    a.href=canvas.toDataURL("image/png");
+    a.click();
+  });
 }
 
 </script>
