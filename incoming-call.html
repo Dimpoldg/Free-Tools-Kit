@@ -2,194 +2,285 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Incoming Call Tool</title>
+<title>Incoming Call</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 <style>
 body{
   margin:0;
   font-family:Arial;
-  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+  background:url('https://images.unsplash.com/photo-1494526585095-c41746248156') no-repeat center/cover;
+}
+
+/* BLUR */
+.overlay{
+  position:fixed;
+  width:100%;
+  height:100%;
+  backdrop-filter: blur(20px);
   display:flex;
   flex-direction:column;
   align-items:center;
-  min-height:100vh;
+  justify-content:center;
 }
 
-/* TITLE */
-header{
-  color:white;
-  font-size:22px;
-  font-weight:bold;
-  margin:20px;
-}
-
-/* MAIN CARD */
-.card{
-  width:340px;
-  background:rgba(255,255,255,0.1);
-  backdrop-filter:blur(15px);
-  border-radius:20px;
-  padding:20px;
-  text-align:center;
-  color:white;
-  box-shadow:0 10px 30px rgba(0,0,0,0.4);
+/* TOP */
+.top{
+  position:absolute;
+  top:20px;
+  width:90%;
+  display:flex;
+  justify-content:space-between;
+  font-size:14px;
+  color:#ccc;
 }
 
 /* PROFILE */
 .profile{
-  width:120px;
-  height:120px;
+  width:150px;
+  height:150px;
   border-radius:50%;
-  border:4px solid #00ffcc;
+  border:5px solid #00ffcc;
   animation:ring 2s infinite;
 }
 
 @keyframes ring{
   0%{box-shadow:0 0 10px #00ffcc;}
-  50%{box-shadow:0 0 30px #00ffcc;}
+  50%{box-shadow:0 0 40px #00ffcc;}
   100%{box-shadow:0 0 10px #00ffcc;}
 }
 
-/* TEXT */
-.name{
-  font-size:22px;
-  margin-top:10px;
+.name{ font-size:26px; margin-top:10px; }
+.number{ color:#ccc; }
+.status{ margin-bottom:40px; color:#aaa; }
+
+.swipe-box{
+  position:relative;
+  width:90%;
+  height:100px;
 }
 
-.number{
-  color:#ccc;
-  margin-bottom:10px;
+.drag-btn{
+  position:absolute;
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:30px;
+  top:10px;
 }
 
-.status{
-  font-size:14px;
-  color:#aaa;
-  margin-bottom:20px;
-}
+.reject{ left:0; background:red; }
+.accept{ right:0; background:green; }
 
-/* BUTTONS */
-.btns{
+.labels{
+  width:90%;
   display:flex;
   justify-content:space-between;
-  gap:10px;
-}
-
-button{
-  flex:1;
-  padding:10px;
-  border:none;
-  border-radius:10px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.accept{
-  background:#25D366;
-  color:white;
-}
-
-.reject{
-  background:#ff4d4d;
-  color:white;
+  font-size:12px;
+  color:#ccc;
 }
 
 /* CONTROLS */
 .controls{
-  width:340px;
-  margin-top:15px;
-  background:white;
-  padding:15px;
-  border-radius:15px;
+  position:absolute;
+  top:10px;
+  left:10px;
+  background:rgba(0,0,0,0.4);
+  padding:10px;
+  border-radius:10px;
 }
 
 input, button{
-  width:100%;
-  padding:10px;
-  margin:5px 0;
-  border-radius:8px;
+  padding:8px;
+  margin:3px;
+  border-radius:6px;
   border:none;
 }
 
-/* DOWNLOAD */
-.download{
-  background:#128C7E;
-  color:white;
+/* DOWNLOAD BUTTON */
+.download-btn{
+  position:absolute;
+  bottom:20px;
+  padding:10px 15px;
+  background:#ffcc00;
+  color:#000;
+  border-radius:10px;
+  font-weight:bold;
 }
 </style>
 </head>
 
 <body>
 
-<header>📞 Incoming Call Generator</header>
+<div class="overlay">
 
-<!-- CARD -->
-<div class="card" id="capture">
+<div class="top">
+  <div id="time"></div>
+  <div>Jio 4G 🔋67%</div>
+</div>
 
-<img id="img" class="profile" src="https://via.placeholder.com/120">
+<img id="img" class="profile" src="https://via.placeholder.com/150">
 
 <div id="name" class="name">Rahul Sharma</div>
 <div id="number" class="number">+91 98765 43210</div>
-<div id="status" class="status">Incoming Call...</div>
+<div id="status" class="status">Tap Start</div>
 
-<div class="btns">
-<button class="accept" onclick="accept()">Accept</button>
-<button class="reject" onclick="reject()">Reject</button>
+<div class="swipe-box">
+  <div id="rejectBtn" class="drag-btn reject">📞</div>
+  <div id="acceptBtn" class="drag-btn accept">📞</div>
 </div>
+
+<div class="labels">
+  <span>Swipe Left</span>
+  <span>Swipe Right</span>
+</div>
+
+<!-- DOWNLOAD -->
+<button class="download-btn" onclick="downloadVCF()">Download Contact</button>
 
 </div>
 
 <!-- CONTROLS -->
-<div class="controls">
-
-<input type="file" onchange="setImg(event)">
-
+<div class="controls" id="controls">
+<input type="file" onchange="setImg(event); hideControls();">
 <input type="text" id="n" placeholder="Name">
 <input type="text" id="num" placeholder="Number">
-
-<button onclick="setData()">Set Data</button>
-
-<button class="download" onclick="downloadCall()">Download Screenshot</button>
-
+<button onclick="setData(); hideControls();">Set</button>
+<button onclick="start(); hideControls();">Start</button>
 </div>
+
+<audio id="ringtone" src="https://www.soundjay.com/phone/phone-ring-01.mp3" loop></audio>
 
 <script>
 
-// IMAGE
+// CLOCK
+setInterval(()=>{
+  document.getElementById("time").innerText =
+    new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+},1000);
+
+// SET IMAGE
 function setImg(e){
   document.getElementById("img").src =
     URL.createObjectURL(e.target.files[0]);
 }
 
-// DATA
+// SET DATA
 function setData(){
   document.getElementById("name").innerText =
     document.getElementById("n").value;
-
   document.getElementById("number").innerText =
     document.getElementById("num").value;
 }
 
+// HIDE CONTROLS
+function hideControls(){
+  document.getElementById("controls").style.display="none";
+}
+
+// AUDIO FIX
+let ringtone=document.getElementById("ringtone");
+document.body.addEventListener("click", ()=>{
+  ringtone.play().then(()=> ringtone.pause());
+},{once:true});
+
+// START
+let ringing=false;
+
+function start(){
+  document.getElementById("status").innerText="Incoming Call...";
+  
+  ringtone.currentTime = 0;
+  ringtone.play().catch(()=>{});
+
+  ringing=true;
+
+  let vib=setInterval(()=>{
+    if(!ringing) return clearInterval(vib);
+    if(navigator.vibrate) navigator.vibrate(300);
+  },800);
+}
+
 // ACCEPT
+let timerSec=0;
+let timer;
+
 function accept(){
-  document.getElementById("status").innerText="Call Connected";
+  ringing=false;
+  ringtone.pause();
+
+  document.getElementById("status").innerText="Connected";
+
+  timer=setInterval(()=>{
+    timerSec++;
+    let m=Math.floor(timerSec/60);
+    let s=timerSec%60;
+    document.getElementById("status").innerText =
+      m+":"+(s<10?"0"+s:s);
+  },1000);
 }
 
 // REJECT
 function reject(){
+  ringing=false;
+  ringtone.pause();
   document.getElementById("status").innerText="Call Ended";
 }
 
-// DOWNLOAD
-function downloadCall(){
-  html2canvas(document.getElementById("capture")).then(canvas=>{
-    let a=document.createElement("a");
-    a.download="incoming-call.png";
-    a.href=canvas.toDataURL("image/png");
-    a.click();
-  });
+// DRAG
+let dragging=null;
+
+let acceptBtn=document.getElementById("acceptBtn");
+let rejectBtn=document.getElementById("rejectBtn");
+
+[acceptBtn, rejectBtn].forEach(btn=>{
+  btn.addEventListener("touchstart", ()=> dragging=btn);
+});
+
+document.addEventListener("touchmove",(e)=>{
+  if(!dragging) return;
+  let x=e.touches[0].clientX;
+  dragging.style.left=(x-40)+"px";
+});
+
+document.addEventListener("touchend",()=>{
+  if(!dragging) return;
+
+  let rect=dragging.getBoundingClientRect();
+
+  if(dragging.id==="acceptBtn" && rect.left<window.innerWidth/2){
+    accept();
+  }
+
+  if(dragging.id==="rejectBtn" && rect.left>window.innerWidth/2){
+    reject();
+  }
+
+  acceptBtn.style.left="";
+  rejectBtn.style.left="";
+  dragging=null;
+});
+
+// DOWNLOAD CONTACT (VCF)
+function downloadVCF(){
+  let name=document.getElementById("name").innerText;
+  let number=document.getElementById("number").innerText;
+
+  let vcf=`BEGIN:VCARD
+VERSION:3.0
+FN:${name}
+TEL:${number}
+END:VCARD`;
+
+  let blob=new Blob([vcf],{type:"text/vcard"});
+  let a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=name+".vcf";
+  a.click();
 }
 
 </script>
